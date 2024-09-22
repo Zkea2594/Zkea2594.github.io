@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zayne Anderson - Portfolio</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <style>
+        /* CSS for Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home">
+        <h1>Welcome to My Portfolio</h1>
+        <p>Hi, I'm Zayne Anderson, a Game Designer. Explore my work below.</p>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="about-title">About Me</h2>
+        <img src="C:\Users\Zande\source\repos\Portfolio\Assets\Pictures\ZayneAndersonPortfolio.webp" alt="Zayne Anderson" class="about-picture">
+        <div class="text-bubble">
+            <p>
+                I'm a Game Designer with experience in Unreal Engine. I love creating cooperative games that push players to analyze and think.
+                I also like to challenge myself and innovate ways to turn one idea into my own. I'm currently an Online Game Design Student at Full Sail University.
+                I'm based out of Washington State. I love it here and I have hopes of opening my own studio based here out of Washington.
+            </p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>My Projects</h2>
+        <div class="project">
+            <h3>Blockmesh Level Design</h3>
+            <p>
+                Here is my latest blockmesh design. I wanted to protray more of a greek/mediterranian theme for the setting. I also wanted to convey more movement to add a sense of direction.
+                Utilizing carts and lights to simulate breadcrumbs for the player to follow. Providing an aqueduct to give the player a direction to look where water is flowing from. Add in birds circling overhead to signify a sense of importance.
+                Further in the player comes across a gated path. I utilized trees to lead the way and climbable surfaces to give the player  sense of resistance. Later on the player is forced to cross a gap without a safe way to return.
+                This creates a valve barring the player until a later condition is met. Upon reaching the temple, a gorgeous view of the city is available, and the door is interactable. With the door I wanted to symbolize the heaviness of the doors and made them move slowly.
+            </p>
+            <div class="video-container">
+                <video controls>
+                    <source src="C:\Users\Zande\source\repos\Portfolio\Assets\Videos\Z_Anderson_BM2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+        <div class="project">
+
+            <h3>Active Project</h3>
+            <p>
+                This is part of a group project between 3 classmates. Each of us focusing on different aspects.
+                I'm playing around with Procedurally Generated level designs and when completed it will create levels with various objectives ensuring different playthroughs each time.'
+            </p>
+            <div class="video-container">
+                <video controls>
+                    <source src="C:\Users\Zande\source\repos\Portfolio\Assets\Videos\ProcGenShooter.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+        <!-- Add more projects as needed -->
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>If you'd like to get in touch, feel free to reach out on social media or use the form below!</p>
+        <form action="https://formspree.io/f/xanwgogg" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+            <!-- Hidden input field for redirecting after form submission -->
+            <input type="hidden" name="_redirect" value="ThankYouPage.html">
+
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Zayne Anderson. All rights reserved.</p>
+        <p>
+            Follow me on:
+            <a href="https://x.com/zayneanderson5" target="_blank">X</a> |
+            <a href="https://www.linkedin.com/in/zayne-anderson-5uegd2594/" target="_blank">LinkedIn</a>
+        </p>
+    </footer>
+
+</body>
+</html>
