@@ -171,12 +171,15 @@ section {
     display: flex; /* Centers the video */
     justify-content: center;
     padding-top: 20px; /* Adds space inside the top of the video container */
+    position: relative; /* Allow absolute positioning of iframe */
 }
 
-    .video-container video {
+    .video-container iframe {
+        position: absolute; /* Position it absolutely to fill the container */
+        top: 0;
+        left: 0;
         width: 100%; /* Sets the video to take the full width of the container */
-        max-width: 600px; /* Optional: set a max width if you want to limit its size further */
-        height: auto; /* Maintains aspect ratio */
+        height: 100%; /* Makes the iframe fill the height of the container */
         border-radius: 8px; /* Optional: add rounded corners to the video */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add a subtle shadow */
     }
