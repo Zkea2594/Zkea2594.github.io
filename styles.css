@@ -166,22 +166,19 @@ section {
 }
 /* Video container styling */
 .video-container {
-    max-width: 100%; /* Limits the width to the parent container */
-    overflow: hidden; /* Ensures anything outside the bounds is hidden */
-    display: flex; /* Centers the video */
+    max-width: 100%; /* Keep this to make it responsive */
+    overflow: hidden;
+    display: flex;
     justify-content: center;
-    padding-top: 20px; /* Adds space inside the top of the video container */
-    position: relative; /* Allow absolute positioning of iframe */
+    padding-top: 20px;
 }
 
     .video-container iframe {
-        position: absolute; /* Position it absolutely to fill the container */
-        top: 0;
-        left: 0;
-        width: 100%; /* Sets the video to take the full width of the container */
-        height: 100%; /* Makes the iframe fill the height of the container */
-        border-radius: 8px; /* Optional: add rounded corners to the video */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add a subtle shadow */
+        width: 100%; /* Make it full width */
+        max-width: 800px; /* Increase max-width for larger videos */
+        height: 450px; /* Set a specific height to maintain aspect ratio */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 /* Contact Section */
 #contact h2 {
