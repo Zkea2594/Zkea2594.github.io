@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Zayne Anderson</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --card-bg: #222222;
+            --accent-primary: #00ff88;
+            --accent-secondary: #0088ff;
+            --accent-tertiary: #ff0088;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #999999;
+            --border-color: #333333;
+            --gradient-primary: linear-gradient(135deg, #00ff88, #0088ff);
+            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --shadow-hover: 0 20px 50px rgba(0, 255, 136, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a.active,
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a.active::after,
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 2rem;
+            text-align: center;
+            background: var(--secondary-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .filter-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover {
+            color: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+
+        .filter-btn.active {
+            background: var(--accent-primary);
+            color: var(--primary-bg);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Projects Grid */
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+            position: relative;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .project-card.hidden {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .project-image {
+            aspect-ratio: 16/9;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .project-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--accent-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent-primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .project-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            color: var(--accent-primary);
+            border: 2px solid var(--accent-primary);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .project-btn:hover {
+            background: var(--accent-primary);
+            color: var(--primary-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .project-btn.secondary {
+            color: var(--accent-secondary);
+            border-color: var(--accent-secondary);
+        }
+
+        .project-btn.secondary:hover {
+            background: var(--accent-secondary);
+            color: var(--primary-bg);
+            box-shadow: 0 5px 15px rgba(0, 136, 255, 0.3);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--secondary-bg);
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stats-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-bg);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-link {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+        }
+
+        .social-link:hover {
+            color: var(--accent-primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(26, 26, 26, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                border-top: 1px solid var(--border-color);
+                backdrop-filter: blur(15px);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .filter-buttons {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .page-header {
+                padding: 2rem 1rem 1rem;
+            }
+
+            .projects-container {
+                padding: 2rem 1rem;
+            }
+
+            .project-links {
+                flex-direction: column;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 1rem;
+            }
+            
+            .project-card {
+                margin: 0;
+            }
+            
+            .project-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Zayne Anderson</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" onclick="toggleNav()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1 class="page-title">My Projects</h1>
+        <p class="page-subtitle">
+            A collection of my game development work, showcasing different aspects of design, 
+            programming, and creative problem-solving across various genres and platforms.
+        </p>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <h3 class="filter-title">Filter by Category</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="level-design">Level Design</button>
+                <button class="filter-btn" data-filter="game-design">Game Design</button>
+                <button class="filter-btn" data-filter="programming">Programming</button>
+                <button class="filter-btn" data-filter="horror">Horror</button>
+                <button class="filter-btn" data-filter="cooperative">Cooperative</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="projects-container">
+        <div class="projects-grid">
+            <!-- Focal Point Project -->
+            <div class="project-card" data-category="level-design horror">
+                <div class="project-image">
+                    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRi2dc4pBEj-X4YFWaYmyps2evwI9RHHNbbxM6eBkqgd-LsPFpcTN2-L2FWemJ3TA/pubembed?start=false&loop=false&delayms=3000" allowfullscreen></iframe>
+                    <div class="project-badge">Featured</div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Focal Point – Horror Experience</h3>
+                    <p class="project-description">
+                        A comprehensive horror level design document showcasing advanced stealth mechanics, 
+                        custom camera systems inspired by Outlast, and multiple escape routes within a 
+                        two-story house environment. Features psychological tension mechanics and environmental storytelling.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Level Design</span>
+                        <span class="tag">Horror</span>
+                        <span class="tag">Stealth Mechanics</span>
+                        <span class="tag">Unreal Engine</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/focal-point.html" class="project-btn">
+                            <i class="fas fa-eye"></i>
+                            View Details
+                        </a>
+                        <a href="https://docs.google.com/presentation/d/e/2PACX-1vRi2dc4pBEj-X4YFWaYmyps2evwI9RHHNbbxM6eBkqgd-LsPFpcTN2-L2FWemJ3TA/pub?start=false&loop=false&delayms=3000" target="_blank" class="project-btn secondary">
+                            <i class="fas fa-external-link-alt"></i>
+                            Full Presentation
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mountain Explorer Level -->
+            <div class="project-card" data-category="level-design programming">
+                <div class="project-image">
+                    <iframe src="https://www.youtube.com/embed/Uh0COhPdznE" allowfullscreen></iframe>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Mountain Explorer Level</h3>
+                    <p class="project-description">
+                        Collaborative level design project featuring exploration mechanics and environmental storytelling. 
+                        Set the overall world design for the level, redesigned buildings and props, and implemented 
+                        goal-driven gameplay with temple key mechanics using Unreal's landscape tools.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Level Design</span>
+                        <span class="tag">Team Project</span>
+                        <span class="tag">Exploration</span>
+                        <span class="tag">Environment Art</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/mountain-explorer.html" class="project-btn">
+                            <i class="fas fa-eye"></i>
+                            View Details
+                        </a>
+                        <a href="https://www.youtube.com/embed/Uh0COhPdznE" target="_blank" class="project-btn secondary">
+                            <i class="fab fa-youtube"></i>
+                            Watch Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chameleon Code -->
+            <div class="project-card" data-category="game-design programming">
+                <div class="project-image">
+                    <iframe src="https://www.youtube.com/embed/QT1selhPE5c" allowfullscreen></iframe>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Chameleon Code</h3>
+                    <p class="project-description">
+                        Innovative tile-based puzzle game featuring color-changing mechanics that unlock new interactions. 
+                        Players shift colors to deactivate barriers, blend into environments, and solve increasingly 
+                        complex challenges that emphasize adaptability and strategic thinking.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Game Design</span>
+                        <span class="tag">Puzzle Mechanics</span>
+                        <span class="tag">Stealth</span>
+                        <span class="tag">Solo Project</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/chameleon-code.html" class="project-btn">
+                            <i class="fas fa-eye"></i>
+                            View Details
+                        </a>
+                        <a href="https://www.youtube.com/embed/QT1selhPE5c" target="_blank" class="project-btn secondary">
+                            <i class="fab fa-youtube"></i>
+                            Watch Gameplay
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FPS Dungeon Crawler -->
+            <div class="project-card" data-category="programming game-design">
+                <div class="project-image">
+                    <iframe src="https://www.youtube.com/embed/EUT4bM4Ipns" allowfullscreen></iframe>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">FPS Dungeon Crawler</h3>
+                    <p class="project-description">
+                        Fast-paced first-person shooter developed in one week featuring multi-room dungeons, 
+                        AI behavior systems, and boss encounters. Focused on developing enemy AI that roams 
+                        chaotically until detecting players, then pursues and attacks strategically.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">AI Programming</span>
+                        <span class="tag">FPS</span>
+                        <span class="tag">Rapid Prototype</span>
+                        <span class="tag">Boss Design</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/fps-dungeon.html" class="project-btn">
+                            <i class="fas fa-eye"></i>
+                            View Details
+                        </a>
+                        <a href="https://www.youtube.com/embed/EUT4bM4Ipns" target="_blank" class="project-btn secondary">
+                            <i class="fab fa-youtube"></i>
+                            Watch Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top-Down Zombie Shooter -->
+            <div class="project-card" data-category="programming cooperative">
+                <div class="project-image">
+                    <iframe src="https://www.youtube.com/embed/Tp-qrgaAe_Y" allowfullscreen></iframe>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Top-Down Zombie Shooter</h3>
+                    <p class="project-description">
+                        Dead Ops Arcade-inspired shooter featuring procedural room generation and cooperative gameplay. 
+                        Led development of the procedural generation system while contributing to player controller 
+                        and UI design. Emphasizes high-score chasing and teamwork against endless zombie hordes.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Procedural Generation</span>
+                        <span class="tag">Cooperative</span>
+                        <span class="tag">Team Project</span>
+                        <span class="tag">Arcade Style</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/zombie-shooter.html" class="project-btn">
+                            <i class="fas fa-eye"></i>
+                            View Details
+                        </a>
+                        <a href="https://www.youtube.com/embed/Tp-qrgaAe_Y" target="_blank" class="project-btn secondary">
+                            <i class="fab fa-youtube"></i>
+                            Watch Gameplay
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Placeholder for Future Project -->
+            <div class="project-card" data-category="game-design">
+                <div class="project-image">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Upcoming Project</h3>
+                    <p class="project-description">
+                        Currently in development! This space is reserved for my next major project. 
+                        Follow my blog for updates and behind-the-scenes development insights as I work 
+                        on something exciting in the cooperative puzzle genre.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">In Development</span>
+                        <span class="tag">Coming Soon</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="blog.html" class="project-btn">
+                            <i class="fas fa-blog"></i>
+                            Follow Development
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <h3 class="filter-title">Project Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Completed Projects</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Engines Used</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Team Projects</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Passion Driven</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://x.com/zayneanderson5" target="_blank" class="social-link" title="Twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/zayne-anderson-5uegd2594/" target="_blank" class="social-link" title="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/zkea2594" target="_blank" class="social-link" title="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <p class="footer-text">
+            © 2025 Zayne Anderson. Crafted with passion for game development.
+        </p>
+    </footer>
+
+    <script>
+        // Navigation Toggle
+        function toggleNav() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Project Filtering
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if (filterValue === 'all') {
+                        card.classList.remove('hidden');
+                    } else {
+                        const categories = card.getAttribute('data-category');
+                        if (categories && categories.includes(filterValue)) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe project cards for animation
+        projectCards.forEach(card => {
+            observer.observe(card);
+        });
+
+        // Close mobile nav when clicking links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(26, 26, 26, 0.98)';
+            } else {
+                nav.style.background = 'rgba(26, 26, 26, 0.95)';
+            }
+        });
+
+        // Counter animation for stats
+        function animateCounters() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const finalNumber = stat.textContent;
+                const isPercentage = finalNumber.includes('%');
+                const isPlus = finalNumber.includes('+');
+                const numericValue = parseInt(finalNumber.replace(/[^\d]/g, ''));
+                
+                let currentNumber = 0;
+                const increment = Math.ceil(numericValue / 30);
+                
+                const timer = setInterval(() => {
+                    currentNumber += increment;
+                    if (currentNumber >= numericValue) {
+                        currentNumber = numericValue;
+                        clearInterval(timer);
+                    }
+                    
+                    let displayValue = currentNumber.toString();
+                    if (isPercentage) displayValue += '%';
+                    if (isPlus) displayValue += '+';
+                    
+                    stat.textContent = displayValue;
+                }, 50);
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsSection = document.querySelector('.stats-section');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        statsObserver.observe(statsSection);
+    </script>
+</body>
+</html>

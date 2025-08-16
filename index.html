@@ -1,160 +1,636 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zayne Anderson - Portfolio</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <title>Zayne Anderson - Game Designer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* CSS for Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --card-bg: #222222;
+            --accent-primary: #00ff88;
+            --accent-secondary: #0088ff;
+            --accent-tertiary: #ff0088;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #999999;
+            --border-color: #333333;
+            --gradient-primary: linear-gradient(135deg, #00ff88, #0088ff);
+            --gradient-secondary: linear-gradient(135deg, #0088ff, #ff0088);
+            --gradient-tertiary: linear-gradient(135deg, #ff0088, #ffaa00);
+            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --shadow-hover: 0 20px 50px rgba(0, 255, 136, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(0, 255, 136, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 136, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 40%, rgba(255, 0, 136, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            z-index: 2;
+        }
+
+        .hero-greeting {
+            font-size: 1.2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .hero-name {
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .hero-title {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Page Showcase Sections */
+        .page-showcase {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .showcase-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .showcase-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .showcase-card:hover::before {
+            left: 100%;
+        }
+
+        .showcase-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .showcase-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .showcase-card.projects .showcase-icon {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .showcase-card.blog .showcase-icon {
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .showcase-card.about .showcase-icon {
+            background: var(--gradient-tertiary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .showcase-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .showcase-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .showcase-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.8rem;
+            background: transparent;
+            color: var(--accent-primary);
+            border: 2px solid var(--accent-primary);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .showcase-btn:hover {
+            background: var(--accent-primary);
+            color: var(--primary-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .showcase-card.blog .showcase-btn {
+            color: var(--accent-secondary);
+            border-color: var(--accent-secondary);
+        }
+
+        .showcase-card.blog .showcase-btn:hover {
+            background: var(--accent-secondary);
+            color: var(--primary-bg);
+            box-shadow: 0 10px 25px rgba(0, 136, 255, 0.3);
+        }
+
+        .showcase-card.about .showcase-btn {
+            color: var(--accent-tertiary);
+            border-color: var(--accent-tertiary);
+        }
+
+        .showcase-card.about .showcase-btn:hover {
+            background: var(--accent-tertiary);
+            color: var(--primary-bg);
+            box-shadow: 0 10px 25px rgba(255, 0, 136, 0.3);
+        }
+
+        /* Contact CTA Section */
+        .contact-cta {
+            background: var(--secondary-bg);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1.2rem 2.5rem;
+            background: var(--gradient-primary);
+            color: var(--primary-bg);
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.5);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-bg);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-link {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+        }
+
+        .social-link:hover {
+            color: var(--accent-primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(26, 26, 26, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                border-top: 1px solid var(--border-color);
+                backdrop-filter: blur(15px);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .showcase-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .hero {
+                padding: 1rem;
+                min-height: 90vh;
+            }
+
+            .page-showcase {
+                padding: 3rem 1rem;
+            }
+
+            .contact-cta {
+                padding: 3rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 1rem;
+            }
+            
+            .showcase-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .hero-name {
+                font-size: 2.5rem;
+            }
+            
+            .hero-title {
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- Header Section -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Zayne Anderson</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
-        </nav>
-    </header>
+            <button class="nav-toggle" onclick="toggleNav()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
 
-    <!-- Home Section -->
-    <section id="home">
-        <h1>Welcome to My Portfolio</h1>
-        <p>Hi, I'm Zayne Anderson, a Game Designer. Explore my work below.</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-greeting">Hello, I'm</p>
+            <h1 class="hero-name">Zayne Anderson</h1>
+            <h2 class="hero-title">Game Designer & Developer</h2>
+            <p class="hero-description">
+                Passionate about creating immersive interactive experiences that challenge players 
+                to think strategically and work together. Specializing in Unreal Engine development 
+                and innovative cooperative gameplay mechanics.
+            </p>
+        </div>
     </section>
 
-
-    <!-- Projects Section -->
-    <section id="projects">
-        <h2>My Projects</h2>
-
-        <div class="project">
-            <h3>Focal Point – Level Design Document</h3>
-            <p>
-                This horror level design document showcases a full stealth gameplay loop, custom camera mechanics inspired by *Outlast*, and multiple escape routes within a two-story house setting. The slides break down the narrative, pacing, stressors, and design strategies used to support player immersion and tension.
-            </p>
-            <div class="video-wrapper">
-                <div class="iframe-wrapper">
-                    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRi2dc4pBEj-X4YFWaYmyps2evwI9RHHNbbxM6eBkqgd-LsPFpcTN2-L2FWemJ3TA/pubembed?start=true&loop=true&delayms=10000"
-                            frameborder="0"
-                            allowfullscreen
-                            mozallowfullscreen
-                            webkitallowfullscreen>
-                    </iframe>
+    <!-- Page Showcase Section -->
+    <section class="page-showcase">
+        <div class="showcase-grid">
+            <!-- Projects Card -->
+            <div class="showcase-card projects">
+                <div class="showcase-icon">
+                    <i class="fas fa-gamepad"></i>
                 </div>
-                <div class="button-wrapper">
-                    <a href="https://docs.google.com/presentation/d/e/2PACX-1vRi2dc4pBEj-X4YFWaYmyps2evwI9RHHNbbxM6eBkqgd-LsPFpcTN2-L2FWemJ3TA/pub?start=false&loop=false&delayms=3000"
-                       target="_blank"
-                       class="button-link">
-                        Open Fullscreen Presentation
-                    </a>
+                <h3 class="showcase-title">Projects</h3>
+                <p class="showcase-description">
+                    Explore my portfolio of game development projects, from horror experiences 
+                    to cooperative puzzlers. Each project showcases different aspects of design, 
+                    programming, and creative problem-solving.
+                </p>
+                <a href="projects.html" class="showcase-btn">
+                    View Projects <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Blog Card -->
+            <div class="showcase-card blog">
+                <div class="showcase-icon">
+                    <i class="fas fa-blog"></i>
                 </div>
+                <h3 class="showcase-title">Development Blog</h3>
+                <p class="showcase-description">
+                    Follow my journey through the game development industry. From technical tutorials 
+                    to design philosophies, get insights into my creative process and industry thoughts.
+                </p>
+                <a href="blog.html" class="showcase-btn">
+                    Read Blog <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
-        </div>
 
-
-        <div class="project">
-            <h3>Level Design</h3>
-            <p>
-                This project was updated when working with a team. We each brought a segment of the map into the overall level and wanted to give the Player a sense of exploration moving further into the mountains. My design sets the overall world design for the level. I kept the layout for the city but started to update some of the buildings and accessories like Barrels and Tables. I added a goal to the end of my level forcing the Player to visit the temple to obtain the key to unlock the next scene in the level. I used the landscape tool to help redesign the scene and give it more definition with grass, foliage, and rocks to provide more immersion while blending the environment. Continuing with this project I will update more assets and refine the buildings to portray a better feel as I learn how to model more effectively.
-            </p>
-            <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/Uh0COhPdznE?si=f3p_H7LY51WkmSFw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <!-- About Card -->
+            <div class="showcase-card about">
+                <div class="showcase-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3 class="showcase-title">About Me</h3>
+                <p class="showcase-description">
+                    Get to know the person behind the projects. Learn about my background, 
+                    passions, and what drives me to create meaningful gaming experiences.
+                </p>
+                <a href="about.html" class="showcase-btn">
+                    Learn More <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
-        </div>
-
-        <div class="project">
-            <h3>Chameleon Code</h3>
-            <p>
-                Chameleon Code is a tile-based puzzle game where players use color-changing mechanics to solve challenges, bypass obstacles, and avoid detection.
-                By shifting the color of both the player and objects, new interactions emerge—like deactivating barriers or blending into the environment.
-                Each level ramps up the complexity with fresh mechanics, strategic puzzles, and stealth elements.
-                It’s a game of adaptability, where success means mastering the art of color.
-            </p>
-            <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/QT1selhPE5c?si=xzipWIvxHiG6DmXb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="project">
-            <h3>FPS Dungeon Crawler</h3>
-            <p>
-                This fast-paced FPS project was built in just one week, featuring a multi-room dungeon filled with traps, jump puzzles, and a climactic boss battle. I focused on developing AI behavior and designing the boss encounter.
-                Enemies would roam chaotically until spotting the player—then chase and shoot projectiles once in range. The boss (while not fully functional) emerged from a central pool, tracking the player and launching attacks based on their last known position.
-                It’s rough around the edges, but a fun and ambitious sprint project.
-            </p>
-            <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/EUT4bM4Ipns?si=iRtRxG_Vag0Y9m9q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="project">
-            <h3>Top-Down Zombie Shooter</h3>
-            <p>
-                Inspired by Dead Ops Arcade, this project delivered a fast-paced, hi-score chasing experience where players fought off an ever-growing zombie horde.
-                The game featured procedurally generated rooms to ensure each run felt fresh and unpredictable.
-                I led the development of the procedural generation system and also contributed to the player controller and UI design.
-            </p>
-            <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/Tp-qrgaAe_Y?si=XFCeAwHKBuAoMGQu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-        </div>
-
-    </section>
-    <!-- Add more projects as needed -->
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
-        <h2 class="about-title">About Me</h2>
-        <img src="ZayneAndersonPortfolio.webp" alt="Zayne Anderson" class="about-picture">
-        <div class="text-bubble">
-            <p>
-                I am a Game Designer with a degree in Game Development, specializing in Unreal Engine and Blueprints. I have a passion for creating cooperative games that challenge players to analyze, strategize, and think critically.
-
-                I enjoy pushing the boundaries of innovation, taking inspiration from existing ideas, and transforming them into something uniquely my own. Based in Washington State, I’m inspired by the region's creativity and innovation and aim to one day establish my own game studio here.
-            </p>
         </div>
     </section>
 
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <p>If you would like to get in touch, feel free to reach out on social media or use the form below!</p>
-        <form action="https://formspree.io/f/xanwgogg" method="post">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
-            <!-- Hidden input field for redirecting after form submission -->
-            <input type="hidden" name="_redirect" value="ThankYouPage.html">
-
-            <button type="submit">Send</button>
-        </form>
+    <!-- Contact CTA Section -->
+    <section class="contact-cta">
+        <div class="contact-content">
+            <h2 class="contact-title">Let's Connect</h2>
+            <p class="contact-description">
+                Interested in collaborating or have questions about my work? 
+                I'd love to hear from you and discuss potential opportunities.
+            </p>
+            <a href="contact.html" class="contact-btn">
+                <i class="fas fa-envelope"></i>
+                Get In Touch
+            </a>
+        </div>
     </section>
 
-    <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2024 Zayne Anderson. All rights reserved.</p>
-        <p>
-            Follow me on:
-            <a href="https://x.com/zayneanderson5" target="_blank">X</a> |
-            <a href="https://www.linkedin.com/in/zayne-anderson-5uegd2594/" target="_blank">LinkedIn</a>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://x.com/zayneanderson5" target="_blank" class="social-link" title="Twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/zayne-anderson-5uegd2594/" target="_blank" class="social-link" title="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/zkea2594" target="_blank" class="social-link" title="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <p class="footer-text">
+            © 2025 Zayne Anderson. Crafted with passion for game development.
         </p>
     </footer>
 
+    <script>
+        // Navigation Toggle
+        function toggleNav() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(26, 26, 26, 0.98)';
+                nav.style.borderBottom = '1px solid rgba(0, 255, 136, 0.3)';
+            } else {
+                nav.style.background = 'rgba(26, 26, 26, 0.95)';
+                nav.style.borderBottom = '1px solid var(--border-color)';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe showcase cards for animation
+        document.querySelectorAll('.showcase-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Close mobile nav when clicking links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+
+        // Add parallax effect to hero background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            hero.style.transform = `translateY(${rate}px)`;
+        });
+    </script>
 </body>
 </html>

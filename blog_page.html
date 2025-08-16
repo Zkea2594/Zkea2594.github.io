@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Blog - Zayne Anderson</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --card-bg: #222222;
+            --accent-primary: #00ff88;
+            --accent-secondary: #0088ff;
+            --accent-tertiary: #ff0088;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #999999;
+            --border-color: #333333;
+            --gradient-primary: linear-gradient(135deg, #00ff88, #0088ff);
+            --gradient-secondary: linear-gradient(135deg, #0088ff, #ff0088);
+            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --shadow-hover: 0 20px 50px rgba(0, 255, 136, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+            .nav-links a {
+                color: var(--text-secondary);
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                position: relative;
+                padding: 0.5rem 0;
+            }
+
+                .nav-links a.active,
+                .nav-links a:hover {
+                    color: var(--accent-primary);
+                }
+
+                .nav-links a::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 0;
+                    height: 2px;
+                    background: var(--gradient-primary);
+                    transition: width 0.3s ease;
+                }
+
+                .nav-links a.active::after,
+                .nav-links a:hover::after {
+                    width: 100%;
+                }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(0, 136, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Support Section */
+        .support-section {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 500px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .support-title {
+            color: var(--accent-tertiary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .support-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .donate-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #ff0088, #ffaa00);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 0, 136, 0.3);
+        }
+
+            .donate-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 0 30px rgba(255, 0, 136, 0.5);
+            }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 2rem;
+            text-align: center;
+            background: var(--secondary-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .filter-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+            .filter-btn:hover {
+                color: var(--accent-primary);
+                border-color: var(--accent-primary);
+            }
+
+            .filter-btn.active {
+                background: var(--accent-primary);
+                color: var(--primary-bg);
+                border-color: var(--accent-primary);
+                box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            }
+
+        /* Blog Timeline */
+        .blog-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            position: relative;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+            .timeline::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 2px;
+                background: var(--gradient-secondary);
+                border-radius: 1px;
+            }
+
+        .blog-post {
+            position: relative;
+            margin-bottom: 3rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+            margin-left: 2rem;
+        }
+
+            .blog-post::before {
+                content: '';
+                position: absolute;
+                left: -3rem;
+                top: 2rem;
+                width: 12px;
+                height: 12px;
+                background: var(--accent-secondary);
+                border-radius: 50%;
+                border: 3px solid var(--primary-bg);
+                box-shadow: 0 0 0 3px var(--accent-secondary);
+            }
+
+            .blog-post:hover {
+                transform: translateX(10px);
+                border-color: var(--accent-secondary);
+                box-shadow: var(--shadow-hover);
+            }
+
+        .post-date {
+            color: var(--accent-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .post-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .post-excerpt {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .post-tag {
+            background: rgba(0, 136, 255, 0.1);
+            color: var(--accent-secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 136, 255, 0.3);
+        }
+
+        .read-more {
+            color: var(--accent-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+            .read-more:hover {
+                color: var(--accent-primary);
+                transform: translateX(5px);
+            }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .read-time {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Featured Post */
+        .blog-post.featured {
+            background: linear-gradient(135deg, var(--card-bg), rgba(0, 136, 255, 0.05));
+            border-color: var(--accent-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .blog-post.featured::after {
+                content: 'FEATURED';
+                position: absolute;
+                top: 1rem;
+                right: -2rem;
+                background: var(--accent-secondary);
+                color: white;
+                padding: 0.3rem 3rem;
+                font-size: 0.7rem;
+                font-weight: bold;
+                transform: rotate(45deg);
+                letter-spacing: 1px;
+            }
+
+            .blog-post.featured::before {
+                background: var(--accent-tertiary);
+                box-shadow: 0 0 0 3px var(--accent-tertiary);
+            }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+        }
+
+            .empty-state i {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                opacity: 0.5;
+            }
+
+            .empty-state h3 {
+                color: var(--text-secondary);
+                margin-bottom: 1rem;
+            }
+
+        /* Loading State */
+        .loading-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .loading-spinner {
+            font-size: 2rem;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Newsletter Signup */
+        .newsletter-section {
+            background: var(--secondary-bg);
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .newsletter-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .newsletter-description {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+            .newsletter-input:focus {
+                outline: none;
+                border-color: var(--accent-secondary);
+                box-shadow: 0 0 0 3px rgba(0, 136, 255, 0.1);
+            }
+
+        .newsletter-btn {
+            padding: 1rem 2rem;
+            background: var(--gradient-secondary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+            .newsletter-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 25px rgba(0, 136, 255, 0.3);
+            }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-bg);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-link {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+        }
+
+            .social-link:hover {
+                color: var(--accent-primary);
+                transform: translateY(-3px);
+            }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(26, 26, 26, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                border-top: 1px solid var(--border-color);
+                backdrop-filter: blur(15px);
+            }
+
+                .nav-links.active {
+                    display: flex;
+                }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .timeline {
+                padding-left: 1rem;
+            }
+
+            .blog-post {
+                margin-left: 1rem;
+                padding: 1.5rem;
+            }
+
+                .blog-post::before {
+                    left: -1.5rem;
+                }
+
+            .timeline::before {
+                left: -0.5rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .newsletter-input {
+                min-width: 100%;
+            }
+
+            .post-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .support-section {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .filter-buttons {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .blog-container {
+                padding: 2rem 1rem;
+            }
+
+            .page-header {
+                padding: 2rem 1rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Zayne Anderson</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" onclick="toggleNav()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1 class="page-title">Development Blog</h1>
+        <p class="page-subtitle">
+            Insights from my game development journey, industry thoughts, technical tutorials,
+            and behind-the-scenes looks at my creative process.
+        </p>
+
+        <!-- Support Section -->
+        <div class="support-section">
+            <h3 class="support-title">
+                <i class="fas fa-heart"></i>
+                Support My Work
+            </h3>
+            <p class="support-description">
+                If you find my content helpful and want to support my game development journey,
+                consider buying me a coffee! Your support helps me create more content and continue working on exciting projects.
+            </p>
+            <a href="https://ko-fi.com/zayneanderson" target="_blank" class="donate-btn">
+                <i class="fas fa-coffee"></i>
+                Buy Me a Coffee
+            </a>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <h3 class="filter-title">
+                <i class="fas fa-filter"></i>
+                Filter Posts
+            </h3>
+            <div class="filter-buttons">
+                <a href="#" class="filter-btn active" data-filter="all">All Posts</a>
+                <a href="#" class="filter-btn" data-filter="2025-08">August 2025</a>
+                <a href="#" class="filter-btn" data-filter="2025-07">July 2025</a>
+                <a href="#" class="filter-btn" data-filter="game-design">Game Design</a>
+                <a href="#" class="filter-btn" data-filter="programming">Programming</a>
+                <a href="#" class="filter-btn" data-filter="industry">Industry Insights</a>
+                <a href="#" class="filter-btn" data-filter="tutorials">Tutorials</a>
+                <a href="#" class="filter-btn" data-filter="devlog">Development Logs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Timeline -->
+    <section class="blog-container">
+        <div class="timeline" id="blogTimeline">
+            <!-- Loading State -->
+            <div class="loading-state" id="loadingState">
+                <i class="fas fa-spinner loading-spinner"></i>
+                <h3>Loading blog posts...</h3>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i class="fas fa-pen-alt"></i>
+                <h3>No blog posts yet</h3>
+                <p>Blog posts will appear here once you start publishing content.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section class="newsletter-section">
+        <div class="newsletter-container">
+            <h3 class="newsletter-title">Stay Updated</h3>
+            <p class="newsletter-description">
+                Get notified when I publish new posts about game development, design insights, and industry trends.
+                No spam, just quality content delivered straight to your inbox.
+            </p>
+            <form class="newsletter-form" action="https://formspree.io/f/xanwgogg" method="post">
+                <input type="email" name="email" class="newsletter-input" placeholder="Your email address" required>
+                <input type="hidden" name="newsletter" value="true">
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://x.com/zayneanderson5" target="_blank" class="social-link" title="Twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/zayne-anderson-5uegd2594/" target="_blank" class="social-link" title="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/zkea2594" target="_blank" class="social-link" title="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <p class="footer-text">
+            © 2025 Zayne Anderson. Crafted with passion for game development.
+        </p>
+    </footer>
+
+    <script>
+        // Blog data storage
+        let allBlogPosts = [];
+
+        // Navigation Toggle
+        function toggleNav() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Load blog posts from JSON
+        async function loadBlogPosts() {
+            const loadingState = document.getElementById('loadingState');
+            const emptyState = document.getElementById('emptyState');
+
+            try {
+                console.log('🔄 Attempting to load blog-data.json...');
+                const response = await fetch('./blog-data.json');
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                console.log('✅ Blog data loaded successfully:', data);
+
+                allBlogPosts = data.posts || [];
+
+                // Hide loading state
+                loadingState.style.display = 'none';
+
+                if (allBlogPosts.length > 0) {
+                    displayBlogPosts(allBlogPosts);
+                    emptyState.style.display = 'none';
+                    console.log(`📝 Displaying ${allBlogPosts.length} blog post(s)`);
+                } else {
+                    emptyState.style.display = 'block';
+                    console.log('📝 No blog posts found in data');
+                }
+
+            } catch (error) {
+                console.error('❌ Error loading blog data:', error);
+                loadingState.style.display = 'none';
+                emptyState.style.display = 'block';
+
+                // Update empty state with error info
+                emptyState.innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Could not load blog posts</h3>
+                        <p>Make sure blog-data.json is in the same folder as this page.</p>
+                        <small style="color: var(--text-muted); margin-top: 1rem; display: block;">
+                            Error: ${error.message}
+                        </small>
+                    `;
+            }
+        }
+
+        // Display blog posts
+        function displayBlogPosts(posts) {
+            const timeline = document.getElementById('blogTimeline');
+            const loadingState = document.getElementById('loadingState');
+            const emptyState = document.getElementById('emptyState');
+
+            // Clear existing posts
+            const existingPosts = timeline.querySelectorAll('.blog-post');
+            existingPosts.forEach(post => post.remove());
+
+            // Sort posts by date (newest first)
+            const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            sortedPosts.forEach(post => {
+                const postElement = createBlogPostElement(post);
+                timeline.appendChild(postElement);
+            });
+
+            console.log('✅ Blog posts displayed successfully');
+        }
+
+        // Create blog post element
+        function createBlogPostElement(post) {
+            const article = document.createElement('article');
+            article.className = `blog-post${post.featured ? ' featured' : ''}`;
+            article.setAttribute('data-category', post.category);
+            article.setAttribute('data-date', post.monthYear);
+
+            article.innerHTML = `
+                    <div class="post-date">
+                        <i class="fas fa-calendar"></i>
+                        ${post.dateString}
+                    </div>
+                    <h2 class="post-title">${post.title}</h2>
+                    <p class="post-excerpt">${post.excerpt}</p>
+                    <div class="post-tags">
+                        ${post.tags.map(tag => `<span class="post-tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="post-meta">
+                        <a href="blog/${post.slug}.html" class="read-more">
+                            Read Full Post <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            ${post.readTime} min read
+                        </span>
+                    </div>
+                `;
+
+            return article;
+        }
+
+        // Initialize filtering
+        function initializeFiltering() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    // Update active state
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filterValue = btn.getAttribute('data-filter');
+                    console.log('🔍 Filtering by:', filterValue);
+
+                    filterBlogPosts(filterValue);
+                });
+            });
+        }
+
+        // Filter blog posts
+        function filterBlogPosts(filterValue) {
+            const blogPosts = document.querySelectorAll('.blog-post');
+
+            blogPosts.forEach(post => {
+                const categories = post.getAttribute('data-category') || '';
+                const date = post.getAttribute('data-date') || '';
+
+                let shouldShow = false;
+
+                if (filterValue === 'all') {
+                    shouldShow = true;
+                } else if (filterValue.includes('-')) {
+                    // Date filter (e.g., "2025-08")
+                    shouldShow = date.includes(filterValue);
+                } else {
+                    // Category filter
+                    shouldShow = categories.includes(filterValue);
+                }
+
+                if (shouldShow) {
+                    post.style.display = 'block';
+                    setTimeout(() => {
+                        post.style.opacity = '1';
+                        post.style.transform = 'translateX(0)';
+                    }, 10);
+                } else {
+                    post.style.opacity = '0';
+                    post.style.transform = 'translateX(-20px)';
+                    setTimeout(() => {
+                        post.style.display = 'none';
+                    }, 300);
+                }
+            });
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🚀 Blog page initializing...');
+            loadBlogPosts();
+            initializeFiltering();
+        });
+
+        // Close mobile nav when clicking links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(26, 26, 26, 0.98)';
+            } else {
+                nav.style.background = 'rgba(26, 26, 26, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
