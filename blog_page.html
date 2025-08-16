@@ -313,6 +313,49 @@
             font-size: 1rem;
         }
 
+        .post-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            display: none;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 1rem;
+        }
+
+            .post-content.expanded {
+                display: block;
+                animation: expandContent 0.3s ease-out;
+            }
+
+            .post-content h3,
+            .post-content h4 {
+                color: var(--accent-primary);
+                margin: 1.5rem 0 1rem 0;
+            }
+
+            .post-content p {
+                margin-bottom: 1rem;
+            }
+
+            .post-content strong {
+                color: var(--text-primary);
+                font-weight: 600;
+            }
+
+        @keyframes expandContent {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+
+            to {
+                opacity: 1;
+                max-height: 1000px;
+            }
+        }
+
         .post-tags {
             display: flex;
             flex-wrap: wrap;
@@ -337,11 +380,37 @@
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s ease;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-family: inherit;
         }
 
             .read-more:hover {
                 color: var(--accent-primary);
                 transform: translateX(5px);
+            }
+
+        .read-less {
+            color: var(--accent-tertiary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-family: inherit;
+            margin-top: 1rem;
+        }
+
+            .read-less:hover {
+                color: var(--accent-primary);
+                transform: translateX(-5px);
             }
 
         .post-meta {
@@ -627,8 +696,8 @@
             <a href="index.html" class="nav-logo">Zayne Anderson</a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="projects_page.html">Projects</a></li>
-                <li><a href="blog_page.html" class="active">Blog</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -819,6 +888,10 @@
             article.className = `blog-post${post.featured ? ' featured' : ''}`;
             article.setAttribute('data-category', post.category);
             article.setAttribute('data-date', post.monthYear);
+            article.setAttribute('data-post-id', post.id);
+
+            // Format content for HTML display
+            const formattedContent = formatBlogContent(post.content);
 
             article.innerHTML = `
                     <div class="post-date">
@@ -827,13 +900,20 @@
                     </div>
                     <h2 class="post-title">${post.title}</h2>
                     <p class="post-excerpt">${post.excerpt}</p>
+                    <div class="post-content" id="content-${post.id}">
+                        ${formattedContent}
+                        <button class="read-less" onclick="collapsePost('${post.id}')">
+                            <i class="fas fa-chevron-up"></i>
+                            Show Less
+                        </button>
+                    </div>
                     <div class="post-tags">
                         ${post.tags.map(tag => `<span class="post-tag">${tag}</span>`).join('')}
                     </div>
                     <div class="post-meta">
-                        <a href="blog/${post.slug}.html" class="read-more">
+                        <button class="read-more" onclick="expandPost('${post.id}')">
                             Read Full Post <i class="fas fa-arrow-right"></i>
-                        </a>
+                        </button>
                         <span class="read-time">
                             <i class="fas fa-clock"></i>
                             ${post.readTime} min read
@@ -842,6 +922,73 @@
                 `;
 
             return article;
+        }
+
+        // Format blog content for HTML display
+        function formatBlogContent(content) {
+            return content
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/^(.+)$/gm, '<p>$1</p>')
+                .replace(/<p><\/p>/g, '')
+                .replace(/<p><strong>([^<]+)<\/strong><\/p>/g, '<h3>$1</h3>');
+        }
+
+        // Expand post content
+        function expandPost(postId) {
+            // Collapse any currently expanded posts
+            const expandedPosts = document.querySelectorAll('.post-content.expanded');
+            expandedPosts.forEach(post => {
+                post.classList.remove('expanded');
+            });
+
+            // Expand the selected post
+            const contentElement = document.getElementById(`content-${postId}`);
+            const postElement = contentElement.closest('.blog-post');
+
+            if (contentElement) {
+                contentElement.classList.add('expanded');
+
+                // Hide the "Read Full Post" button
+                const readMoreBtn = postElement.querySelector('.read-more');
+                if (readMoreBtn) {
+                    readMoreBtn.style.display = 'none';
+                }
+
+                // Smooth scroll to the post
+                setTimeout(() => {
+                    postElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                        inline: 'nearest'
+                    });
+                }, 100);
+            }
+        }
+
+        // Collapse post content
+        function collapsePost(postId) {
+            const contentElement = document.getElementById(`content-${postId}`);
+            const postElement = contentElement.closest('.blog-post');
+
+            if (contentElement) {
+                contentElement.classList.remove('expanded');
+
+                // Show the "Read Full Post" button again
+                const readMoreBtn = postElement.querySelector('.read-more');
+                if (readMoreBtn) {
+                    readMoreBtn.style.display = 'inline-flex';
+                }
+
+                // Smooth scroll back to the post title
+                setTimeout(() => {
+                    postElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                        inline: 'nearest'
+                    });
+                }, 100);
+            }
         }
 
         // Initialize filtering
