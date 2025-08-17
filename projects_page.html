@@ -73,35 +73,35 @@
             gap: 2.5rem;
         }
 
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.5rem 0;
-        }
+            .nav-links a {
+                color: var(--text-secondary);
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                position: relative;
+                padding: 0.5rem 0;
+            }
 
-        .nav-links a.active,
-        .nav-links a:hover {
-            color: var(--accent-primary);
-        }
+                .nav-links a.active,
+                .nav-links a:hover {
+                    color: var(--accent-primary);
+                }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-primary);
-            transition: width 0.3s ease;
-        }
+                .nav-links a::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 0;
+                    height: 2px;
+                    background: var(--gradient-primary);
+                    transition: width 0.3s ease;
+                }
 
-        .nav-links a.active::after,
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+                .nav-links a.active::after,
+                .nav-links a:hover::after {
+                    width: 100%;
+                }
 
         .nav-toggle {
             display: none;
@@ -173,17 +173,17 @@
             font-size: 0.9rem;
         }
 
-        .filter-btn:hover {
-            color: var(--accent-primary);
-            border-color: var(--accent-primary);
-        }
+            .filter-btn:hover {
+                color: var(--accent-primary);
+                border-color: var(--accent-primary);
+            }
 
-        .filter-btn.active {
-            background: var(--accent-primary);
-            color: var(--primary-bg);
-            border-color: var(--accent-primary);
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
-        }
+            .filter-btn.active {
+                background: var(--accent-primary);
+                color: var(--primary-bg);
+                border-color: var(--accent-primary);
+                box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            }
 
         /* Projects Grid */
         .projects-container {
@@ -209,17 +209,18 @@
             transform: scale(1);
         }
 
-        .project-card.hidden {
-            opacity: 0;
-            transform: scale(0.8);
-            pointer-events: none;
-        }
+            .project-card.hidden {
+                opacity: 0;
+                transform: scale(0.8);
+                pointer-events: none;
+                transition: all 0.3s ease;
+            }
 
-        .project-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-primary);
-            box-shadow: var(--shadow-hover);
-        }
+            .project-card:hover {
+                transform: translateY(-10px) scale(1.02);
+                border-color: var(--accent-primary);
+                box-shadow: var(--shadow-hover);
+            }
 
         .project-image {
             aspect-ratio: 16/9;
@@ -233,11 +234,11 @@
             overflow: hidden;
         }
 
-        .project-image iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+            .project-image iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
 
         .project-badge {
             position: absolute;
@@ -307,23 +308,23 @@
             transition: all 0.3s ease;
         }
 
-        .project-btn:hover {
-            background: var(--accent-primary);
-            color: var(--primary-bg);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
-        }
+            .project-btn:hover {
+                background: var(--accent-primary);
+                color: var(--primary-bg);
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+            }
 
-        .project-btn.secondary {
-            color: var(--accent-secondary);
-            border-color: var(--accent-secondary);
-        }
+            .project-btn.secondary {
+                color: var(--accent-secondary);
+                border-color: var(--accent-secondary);
+            }
 
-        .project-btn.secondary:hover {
-            background: var(--accent-secondary);
-            color: var(--primary-bg);
-            box-shadow: 0 5px 15px rgba(0, 136, 255, 0.3);
-        }
+                .project-btn.secondary:hover {
+                    background: var(--accent-secondary);
+                    color: var(--primary-bg);
+                    box-shadow: 0 5px 15px rgba(0, 136, 255, 0.3);
+                }
 
         /* Stats Section */
         .stats-section {
@@ -387,10 +388,10 @@
             padding: 0.5rem;
         }
 
-        .social-link:hover {
-            color: var(--accent-primary);
-            transform: translateY(-3px);
-        }
+            .social-link:hover {
+                color: var(--accent-primary);
+                transform: translateY(-3px);
+            }
 
         .footer-text {
             color: var(--text-muted);
@@ -403,6 +404,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -429,9 +431,9 @@
                 backdrop-filter: blur(15px);
             }
 
-            .nav-links.active {
-                display: flex;
-            }
+                .nav-links.active {
+                    display: flex;
+                }
 
             .nav-toggle {
                 display: block;
@@ -473,11 +475,11 @@
             .nav-container {
                 padding: 1rem;
             }
-            
+
             .project-card {
                 margin: 0;
             }
-            
+
             .project-content {
                 padding: 1.5rem;
             }
@@ -506,7 +508,7 @@
     <section class="page-header">
         <h1 class="page-title">My Projects</h1>
         <p class="page-subtitle">
-            A collection of my game development work, showcasing different aspects of design, 
+            A collection of my game development work, showcasing different aspects of design,
             programming, and creative problem-solving across various genres and platforms.
         </p>
     </section>
@@ -538,8 +540,8 @@
                 <div class="project-content">
                     <h3 class="project-title">Focal Point – Horror Experience</h3>
                     <p class="project-description">
-                        A comprehensive horror level design document showcasing advanced stealth mechanics, 
-                        custom camera systems inspired by Outlast, and multiple escape routes within a 
+                        A comprehensive horror level design document showcasing advanced stealth mechanics,
+                        custom camera systems inspired by Outlast, and multiple escape routes within a
                         two-story house environment. Features psychological tension mechanics and environmental storytelling.
                     </p>
                     <div class="project-tags">
@@ -569,8 +571,8 @@
                 <div class="project-content">
                     <h3 class="project-title">Mountain Explorer Level</h3>
                     <p class="project-description">
-                        Collaborative level design project featuring exploration mechanics and environmental storytelling. 
-                        Set the overall world design for the level, redesigned buildings and props, and implemented 
+                        Collaborative level design project featuring exploration mechanics and environmental storytelling.
+                        Set the overall world design for the level, redesigned buildings and props, and implemented
                         goal-driven gameplay with temple key mechanics using Unreal's landscape tools.
                     </p>
                     <div class="project-tags">
@@ -600,8 +602,8 @@
                 <div class="project-content">
                     <h3 class="project-title">Chameleon Code</h3>
                     <p class="project-description">
-                        Innovative tile-based puzzle game featuring color-changing mechanics that unlock new interactions. 
-                        Players shift colors to deactivate barriers, blend into environments, and solve increasingly 
+                        Innovative tile-based puzzle game featuring color-changing mechanics that unlock new interactions.
+                        Players shift colors to deactivate barriers, blend into environments, and solve increasingly
                         complex challenges that emphasize adaptability and strategic thinking.
                     </p>
                     <div class="project-tags">
@@ -631,8 +633,8 @@
                 <div class="project-content">
                     <h3 class="project-title">FPS Dungeon Crawler</h3>
                     <p class="project-description">
-                        Fast-paced first-person shooter developed in one week featuring multi-room dungeons, 
-                        AI behavior systems, and boss encounters. Focused on developing enemy AI that roams 
+                        Fast-paced first-person shooter developed in one week featuring multi-room dungeons,
+                        AI behavior systems, and boss encounters. Focused on developing enemy AI that roams
                         chaotically until detecting players, then pursues and attacks strategically.
                     </p>
                     <div class="project-tags">
@@ -662,8 +664,8 @@
                 <div class="project-content">
                     <h3 class="project-title">Top-Down Zombie Shooter</h3>
                     <p class="project-description">
-                        Dead Ops Arcade-inspired shooter featuring procedural room generation and cooperative gameplay. 
-                        Led development of the procedural generation system while contributing to player controller 
+                        Dead Ops Arcade-inspired shooter featuring procedural room generation and cooperative gameplay.
+                        Led development of the procedural generation system while contributing to player controller
                         and UI design. Emphasizes high-score chasing and teamwork against endless zombie hordes.
                     </p>
                     <div class="project-tags">
@@ -693,8 +695,8 @@
                 <div class="project-content">
                     <h3 class="project-title">Upcoming Project</h3>
                     <p class="project-description">
-                        Currently in development! This space is reserved for my next major project. 
-                        Follow my blog for updates and behind-the-scenes development insights as I work 
+                        Currently in development! This space is reserved for my next major project.
+                        Follow my blog for updates and behind-the-scenes development insights as I work
                         on something exciting in the cooperative puzzle genre.
                     </p>
                     <div class="project-tags">
@@ -760,50 +762,77 @@
         }
 
         // Project Filtering
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const projectCards = document.querySelectorAll('.project-card');
+        function initializeFiltering() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
 
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
-                button.classList.add('active');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
 
-                const filterValue = button.getAttribute('data-filter');
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
 
-                projectCards.forEach(card => {
-                    if (filterValue === 'all') {
-                        card.classList.remove('hidden');
-                    } else {
-                        const categories = card.getAttribute('data-category');
-                        if (categories && categories.includes(filterValue)) {
-                            card.classList.remove('hidden');
-                        } else {
-                            card.classList.add('hidden');
-                        }
-                    }
+                    const filterValue = this.getAttribute('data-filter');
+                    console.log('Filtering by:', filterValue);
+
+                    filterProjects(filterValue);
                 });
             });
-        });
+        }
 
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        function filterProjects(filterValue) {
+            const projectCards = document.querySelectorAll('.project-card');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
+            projectCards.forEach(card => {
+                const categories = card.getAttribute('data-category') || '';
+
+                let shouldShow = false;
+
+                if (filterValue === 'all') {
+                    shouldShow = true;
+                } else {
+                    // Check if the filter value is included in the card's categories
+                    shouldShow = categories.includes(filterValue);
+                }
+
+                if (shouldShow) {
+                    card.style.display = 'block';
+                    card.style.opacity = '1';
+                    card.style.transform = 'scale(1)';
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
                 }
             });
-        }, observerOptions);
+        }
 
-        // Observe project cards for animation
-        projectCards.forEach(card => {
-            observer.observe(card);
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeFiltering();
+
+            // Initialize intersection observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe project cards for animation
+            document.querySelectorAll('.project-card').forEach(card => {
+                observer.observe(card);
+            });
         });
 
         // Close mobile nav when clicking links
@@ -831,21 +860,21 @@
                 const isPercentage = finalNumber.includes('%');
                 const isPlus = finalNumber.includes('+');
                 const numericValue = parseInt(finalNumber.replace(/[^\d]/g, ''));
-                
+
                 let currentNumber = 0;
                 const increment = Math.ceil(numericValue / 30);
-                
+
                 const timer = setInterval(() => {
                     currentNumber += increment;
                     if (currentNumber >= numericValue) {
                         currentNumber = numericValue;
                         clearInterval(timer);
                     }
-                    
+
                     let displayValue = currentNumber.toString();
                     if (isPercentage) displayValue += '%';
                     if (isPlus) displayValue += '+';
-                    
+
                     stat.textContent = displayValue;
                 }, 50);
             });
