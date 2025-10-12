@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chameleon Code | Zayne Anderson</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --card-bg: #222222;
+            --accent-primary: #00ff88;
+            --accent-secondary: #0088ff;
+            --accent-tertiary: #ff0088;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #999999;
+            --border-color: #333333;
+            --gradient-primary: linear-gradient(135deg, #00ff88, #0088ff);
+            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Hero Section */
+        .project-hero {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(0, 136, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .project-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .meta-item i {
+            color: var(--accent-primary);
+        }
+
+        /* Featured Media */
+        .featured-media {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .media-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        .media-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Content Section */
+        .project-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            color: var(--accent-primary);
+        }
+
+        .content-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .feature-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Process Timeline */
+        .process-timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient-primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            border: 3px solid var(--primary-bg);
+            box-shadow: 0 0 0 3px var(--accent-primary);
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .tech-badge {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Challenges & Solutions */
+        .challenge-card {
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent-tertiary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .challenge-title {
+            color: var(--accent-tertiary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-title {
+            color: var(--accent-primary);
+            font-size: 1rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            background: var(--secondary-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            margin: 4rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--primary-bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-secondary);
+            border: 2px solid var(--accent-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-secondary);
+            color: var(--primary-bg);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-bg);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .project-meta {
+                gap: 1rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-timeline {
+                padding-left: 1rem;
+            }
+
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+
+            .cta-section {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">Zayne Anderson</a>
+            <a href="../projects_page.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Projects
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="project-hero">
+        <h1 class="project-title">Chameleon Code</h1>
+        <p class="project-tagline">Color-Shifting Tile-Based Puzzle Game</p>
+        
+        <div class="project-meta">
+            <div class="meta-item">
+                <i class="fas fa-calendar"></i>
+                <span>2024</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-user"></i>
+                <span>Solo Project</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-gamepad"></i>
+                <span>Puzzle / Stealth</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-code"></i>
+                <span>Unreal Engine 5.3</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Media -->
+    <section class="featured-media">
+        <div class="media-container">
+            <iframe src="https://www.youtube.com/embed/QT1selhPE5c" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <div class="project-content">
+        <!-- Overview -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                Project Overview
+            </h2>
+            <p class="content-text">
+                Chameleon Code is an innovative tile-based puzzle game built around a color-changing mechanic inspired by Color Symphony 2. The core gameplay loop challenges players to strategically shift their color to deactivate matching barriers, blend into environments, and manipulate colored boxes to solve increasingly complex spatial puzzles.
+            </p>
+            <p class="content-text">
+                The project was developed as an exploration of interconnected Blueprint systems using a tile-based architecture. Players navigate grid-based levels where color tiles change the hue of both the player character and pushable boxes. Color-coded detection lights act as gates or valves, opening pathways when the player matches the required color or stripping away the player's color entirely to create backtracking challenges.
+            </p>
+            <p class="content-text">
+                Each level introduces a new mechanic following the Introduce, Practice, Master progression model. Early puzzles teach basic color-switching and barrier navigation, while later challenges layer in pressure plates that require color-matched boxes, bridge tiles that activate only when receiving boxes of the correct color, and teleportation mechanics that add spatial complexity. The win condition is simple but satisfying: reach the goal tile and hear children cheer your success.
+            </p>
+            <p class="content-text">
+                Originally inspired by a concept for a 3D box character escaping a city using environmental camouflage, Chameleon Code distills those stealth and color-shifting ideas into focused puzzle design. The tile-based constraint forced creative solutions around actor referencing and Blueprint communication, resulting in a system where every object is either a Tile or an Entity with clear interaction rules.
+            </p>
+        </section>
+
+        <!-- Design Philosophy -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb"></i>
+                Design Philosophy
+            </h2>
+            <p class="content-text">
+                The design philosophy behind Chameleon Code centers on depth through constraint. By limiting player actions to movement and color-changing, every decision becomes meaningful. The color system is not just a visual gimmick but a core mechanic that gates progression, creates risk-reward scenarios, and forces strategic planning.
+            </p>
+            <p class="content-text">
+                Color detectors function as more than gates, they act as valves that strip the player's color away entirely. This design choice transforms backtracking from a simple path reversal into a puzzle element requiring alternate routes or secondary color changes. Players cannot simply retrace their steps; they must think ahead about color sequences and commit to paths.
+            </p>
+            <p class="content-text">
+                The pressure plate mechanic emphasizes that boxes are not just obstacles to push aside but tools to manipulate. By requiring color-matched boxes to hold down plates, the design creates spatial puzzles where placement order matters. Players must visualize the sequence: push box A to color tile B, then position it on plate C while ensuring they can still reach the goal tile.
+            </p>
+            <p class="content-text">
+                Bridge tiles elevate this further by catching only color-matched boxes and transforming empty space into traversable paths. This mechanic rewards careful planning and punishes hasty moves, as a miscolored box falling into a bridge slot can block progress entirely. The interconnected nature of these systems creates emergent complexity without requiring complicated individual mechanics.
+            </p>
+        </section>
+
+        <!-- Key Features -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                Key Features
+            </h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-palette"></i></div>
+                    <h3 class="feature-title">Dynamic Color System</h3>
+                    <p class="feature-desc">Color tiles change player and box colors using enumerator-based material swapping, creating strategic color-matching puzzles</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-door-open"></i></div>
+                    <h3 class="feature-title">Color Detection Gates</h3>
+                    <p class="feature-desc">Detection lights validate player color to open barriers or strip color away, creating valve mechanics that prevent simple backtracking</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-cube"></i></div>
+                    <h3 class="feature-title">Box Manipulation Puzzles</h3>
+                    <p class="feature-desc">Pushable boxes interact with color tiles, pressure plates, and bridge tiles to create layered spatial challenges</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bridge"></i></div>
+                    <h3 class="feature-title">Bridge Creation Mechanic</h3>
+                    <p class="feature-desc">Empty tiles catch color-matched boxes to form traversable bridges, rewarding strategic box placement and color planning</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Process -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-tasks"></i>
+                Development Process
+            </h2>
+            
+            <div class="process-timeline">
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Initial Concept and Research</h3>
+                    <p class="timeline-desc">
+                        The project began with a tile-based framework assignment to learn level construction. After researching games that used color-changing mechanics, I chose Color Symphony 2 as primary inspiration for its approach to color-based collision and object detection. The goal was to translate side-scrolling color manipulation into top-down tile-based puzzle design.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Core Color System Implementation</h3>
+                    <p class="timeline-desc">
+                        Built the foundational color-changing system using Blueprint enumerators to define color codes. Color tiles detect player or box overlap and swap their material based on the enumerator value. This created immediate visual feedback but lacked gameplay consequence, the color changed but nothing responded to it yet.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Detection System and Valve Mechanics</h3>
+                    <p class="timeline-desc">
+                        Developed color detectors that validate player color and open corresponding barriers. Extended this into valve mechanics where detectors strip the player's color back to default white after passing through. This design choice transformed simple gates into strategic decision points, forcing players to plan color sequences rather than backtrack freely.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Box Interaction and Pressure Plates</h3>
+                    <p class="timeline-desc">
+                        Expanded box functionality beyond simple pushing to include pressure plate activation. Implemented color-coded plates that verify the exact color of entities holding them down, creating puzzles where box color matters as much as box position. Players can trigger plates temporarily but need correctly colored boxes to keep doors open while progressing.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Bridge Tile System Integration</h3>
+                    <p class="timeline-desc">
+                        Incorporated Jessica Ogden's bridge creation mechanic by designing empty tiles that validate box color and transform into traversable bridges when boxes land on them. This added vertical thinking to the puzzle design, players must consider not just where boxes go but how they create pathways across gaps.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Camera System Overhaul</h3>
+                    <p class="timeline-desc">
+                        Transitioned from fixed camera positioning to a player-attached camera system to support larger level designs. Implemented camera blend views and managers to handle smooth transitions. Removed rotation orientation on yaw to prevent disorienting control changes, ensuring directional inputs remained consistent regardless of player rotation.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Level Design and Progression</h3>
+                    <p class="timeline-desc">
+                        Built levels following the Introduce, Practice, Master model, scaling complexity gradually. Early levels teach individual mechanics in isolation, while later puzzles combine color valves, pressure plates, bridge tiles, and teleportation into multi-step challenges. Focused on gameplay depth rather than visual polish, prioritizing puzzle design over graphics within the one-month timeline.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Implementation -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-cog"></i>
+                Technical Stack
+            </h2>
+            
+            <div class="tech-stack">
+                <div class="tech-badge">
+                    <i class="fab fa-unreal-engine"></i>
+                    Unreal Engine 5.3
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-project-diagram"></i>
+                    Blueprint Visual Scripting
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-code"></i>
+                    Enumerator Systems
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-cube"></i>
+                    Tile-Based Architecture
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-network-wired"></i>
+                    Actor Referencing
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-video"></i>
+                    Camera Management
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-code-branch"></i>
+                    Perforce Version Control
+                </div>
+            </div>
+        </section>
+
+        <!-- Challenges & Solutions -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-puzzle-piece"></i>
+                Challenges & Solutions
+            </h2>
+            
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: Managing Color-Coded Systems at Scale</h3>
+                <p class="content-text">
+                    As the number of color-coded tiles, detectors, and pressure plates increased across multiple levels, tracking which objects responded to which colors became mentally overwhelming. Level design slowed down because I had to constantly playtest to remember what colors triggered specific mechanics, breaking design flow.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    Implemented Construction Scripts that provide real-time visual feedback in the editor. Color tiles, detectors, pressure plates, and bridges now display their color coding directly in the level viewport without requiring play mode. This editor-time visualization transformed level design from trial-and-error iteration into intentional spatial planning, drastically improving workflow efficiency.
+                </p>
+            </div>
+            
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: Teleportation Tile Step Activation Bug</h3>
+                <p class="content-text">
+                    The teleportation system required players to step onto the tile, wait a frame, and then teleport, creating frustrating stuttering during what should be seamless travel. This made the teleportation puzzle level annoying to play, reminiscent of the frustrating tile-based teleport mazes in Pokemon Generation 1's Saffron City Gym and Silph Co.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    Discovered the issue stemmed from entity verification and Blueprint execution order. The system was trying to validate the player's identity before allowing teleportation, causing the delay. By implementing an IsValid node that checks for the Entity Class rather than registering the specific player instance, the system bypassed unnecessary verification and enabled instant teleportation. This fixed the mechanical issue, though the puzzle level remains intentionally challenging as a homage to those classic Pokemon teleportation mazes.
+                </p>
+            </div>
+            
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: Camera Attachment and Player Orientation</h3>
+                <p class="content-text">
+                    Transitioning from a fixed camera to a player-attached camera initially created disorienting control problems. The camera rotated with the player, causing directional inputs to change meaning based on player rotation. Pressing W would move forward relative to player facing, meaning it might move left, right, or backward relative to the world depending on rotation.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    Tackled this challenge in two phases. First, learned about camera blend views and camera managers to implement smooth camera following. Second, removed rotation orientation on the player's yaw axis so directional inputs remained consistent with world space rather than character space. W always moves up on screen, A always moves left, regardless of which way the character model faces. This preserved intuitive top-down controls while enabling the freedom of larger level designs.
+                </p>
+            </div>
+        </section>
+
+        <!-- Key Learnings -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap"></i>
+                Key Learnings
+            </h2>
+            <p class="content-text">
+                Chameleon Code provided intensive hands-on experience with Blueprint interconnectivity and actor referencing systems. The constraint against using collision detection forced me to architect everything around tile-based detection, where every object functions as either a Tile or an Entity with specific interaction rules. This binary classification system created clean separation of concerns and made debugging significantly easier than overlapping collision-based approaches.
+            </p>
+            <p class="content-text">
+                Working with enumerators for color coding taught me how to create scalable systems that remain readable at scale. Rather than hardcoding individual color checks throughout dozens of Blueprints, the enumerator approach centralized color logic and made adding new colors trivial. This architectural decision paid dividends when implementing later mechanics like bridge tiles and pressure plates, which leveraged the same color validation system without requiring new infrastructure.
+            </p>
+            <p class="content-text">
+                The Construction Script implementation was a breakthrough moment for editor workflow. Before discovering this technique, level design required constant playtesting to visualize color-coded relationships. After implementing real-time visual feedback in the editor, design iteration speed increased dramatically. This experience reinforced that tools development is as important as gameplay development, investing time in editor quality of life improvements pays back multiplied efficiency.
+            </p>
+            <p class="content-text">
+                Camera systems proved more complex than anticipated. Understanding the relationship between camera managers, blend views, and player rotation control revealed how much invisible infrastructure supports basic functionality players take for granted. The disorienting control issue taught me that maintaining consistent player mental models matters more than technical correctness, world-space controls felt better than character-relative controls even though the latter is more technically accurate.
+            </p>
+            <p class="content-text">
+                The one-month timeline forced prioritization decisions that clarified my design values. Choosing gameplay depth over visual polish was the right call for a puzzle game, the mechanics carry the experience more than graphics. This project validated that strong core systems enable compelling gameplay even with minimal art resources. Polish can always be added later, but foundational design must be solid from the start.
+            </p>
+            <p class="content-text">
+                Finally, this project reinforced the importance of constraint-driven design. The tile-based architecture, limited player actions, and focus on a single core mechanic (color-changing) created more interesting puzzles than if I had unlimited freedom. Working within boundaries forces creative problem-solving and produces more focused, coherent experiences than kitchen-sink design approaches.
+            </p>
+        </section>
+
+        <!-- Future Development -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-forward"></i>
+                Future Development Possibilities
+            </h2>
+            <p class="content-text">
+                The next major expansion for Chameleon Code would introduce mobile color detector robots that patrol levels. These enemies would function as moving detection lights, adding timing elements and stealth pressure to the existing puzzle design. Players would need to match or avoid colors dynamically rather than solving static spatial puzzles, creating tension between planning optimal paths and reacting to patrol patterns.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-robot"></i></div>
+                    <h3 class="feature-title">Patrol Robot Enemies</h3>
+                    <p class="feature-desc">Mobile color detectors with patrol routes that add timing challenges and stealth elements to puzzle-solving</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-save"></i></div>
+                    <h3 class="feature-title">Color Storage System</h3>
+                    <p class="feature-desc">Ability to store one color for later use, enabling new puzzle types that require color swapping without returning to color tiles</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-layer-group"></i></div>
+                    <h3 class="feature-title">Additional Level Content</h3>
+                    <p class="feature-desc">Expanded level roster with more complex mechanical combinations before potential GitHub release</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-city"></i></div>
+                    <h3 class="feature-title">3D City Escape Mode</h3>
+                    <p class="feature-desc">Return to the original inspiration with a 3D platformer mode featuring environmental camouflage and box character movement</p>
+                </div>
+            </div>
+            
+            <p class="content-text" style="margin-top: 2rem;">
+                The color storage mechanic would add strategic depth by allowing players to bank one color for later use. This creates puzzles where players must decide: do I use my stored red now to activate this pressure plate, or save it for the bridge tile three moves ahead? The single-color limitation prevents hoarding and maintains puzzle difficulty while enabling new solution paths that require color management across multiple rooms.
+            </p>
+            
+            <p class="content-text">
+                Robot enemies would patrol set routes, scanning for specific colors. Getting caught would reset the puzzle segment, adding consequence to poor planning. These enemies could interact with existing mechanics: a red robot might ignore you when you're red but chase when you're blue, creating scenarios where you must change colors mid-level while avoiding detection. This transforms static puzzles into dynamic stealth-puzzle hybrids.
+            </p>
+            
+            <p class="content-text">
+                Before releasing on GitHub, I want to expand the level count significantly. The current build demonstrates all core mechanics but needs more content that explores their combinations. Levels that require storing colors while avoiding patrol robots, or bridge-building under time pressure, would showcase the system's full potential. Additional polish passes on existing levels would also improve pacing and difficulty curves.
+            </p>
+            
+            <p class="content-text">
+                The long-term vision circles back to the original 3D city escape concept that inspired this project. Translating the color-changing stealth mechanics into a 3D platformer with environmental camouflage would be the natural evolution. Players controlling a box character navigating a city, blending into the environment by matching building colors, avoiding security cameras, and using parkour-style movement to traverse rooftops. Chameleon Code serves as the proof of concept for those core mechanics in a more accessible 2D format.
+            </p>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <h2 class="cta-title">Explore More Projects</h2>
+            <p class="content-text">
+                Check out my other work to see different aspects of my game development skills, from horror level design to collaborative team projects.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="../projects_page.html" class="btn btn-primary">
+                    <i class="fas fa-folder-open"></i>
+                    View All Projects
+                </a>
+                <a href="../contact_page.html" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i>
+                    Get In Touch
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">
+            © 2025 Zayne Anderson. Crafted with passion for game development.
+        </p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mountain Explorer Level | Zayne Anderson</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --card-bg: #222222;
+            --accent-primary: #00ff88;
+            --accent-secondary: #0088ff;
+            --accent-tertiary: #ff0088;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #999999;
+            --border-color: #333333;
+            --gradient-primary: linear-gradient(135deg, #00ff88, #0088ff);
+            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Hero Section */
+        .project-hero {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(0, 136, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .project-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .meta-item i {
+            color: var(--accent-primary);
+        }
+
+        /* Featured Media */
+        .featured-media {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .media-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        .media-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Content Section */
+        .project-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            color: var(--accent-primary);
+        }
+
+        .content-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .feature-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Process Timeline */
+        .process-timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient-primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            border: 3px solid var(--primary-bg);
+            box-shadow: 0 0 0 3px var(--accent-primary);
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .tech-badge {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Challenges & Solutions */
+        .challenge-card {
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent-tertiary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .challenge-title {
+            color: var(--accent-tertiary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-title {
+            color: var(--accent-primary);
+            font-size: 1rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        /* Team Credits */
+        .team-credits {
+            background: var(--secondary-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .team-credits h3 {
+            color: var(--accent-secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .team-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .team-list li {
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .team-list li:last-child {
+            border-bottom: none;
+        }
+
+        .team-list li strong {
+            color: var(--text-primary);
+        }
+
+        /* Call to Action */
+        .cta-section {
+            background: var(--secondary-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            margin: 4rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--primary-bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-secondary);
+            border: 2px solid var(--accent-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-secondary);
+            color: var(--primary-bg);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-bg);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .project-meta {
+                gap: 1rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-timeline {
+                padding-left: 1rem;
+            }
+
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+
+            .cta-section {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">Zayne Anderson</a>
+            <a href="../projects_page.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Projects
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="project-hero">
+        <h1 class="project-title">Mountain Explorer Level</h1>
+        <p class="project-tagline">Collaborative Mediterranean Adventure Experience</p>
+        
+        <div class="project-meta">
+            <div class="meta-item">
+                <i class="fas fa-calendar"></i>
+                <span>October 2024</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-users"></i>
+                <span>5-Person Team</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-gamepad"></i>
+                <span>Exploration / Adventure</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-code"></i>
+                <span>Unreal Engine 5.3</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Media -->
+    <section class="featured-media">
+        <div class="media-container">
+            <iframe src="https://www.youtube.com/embed/Uh0COhPdznE" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <div class="project-content">
+        <!-- Overview -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                Project Overview
+            </h2>
+            <p class="content-text">
+                Mountain Explorer Level was a collaborative level design project that challenged five developers to create individual levels and merge them into a unified experience using Unreal Engine 5.3. Similar to a game jam format, the project focused entirely on level design principles, emphasizing exploration through environmental storytelling, leading lines, monuments, lighting, and player movement.
+            </p>
+            <p class="content-text">
+                My contribution served as the hub level that enveloped the other four team members' work. I designed a Mediterranean port town inspired by Greek aesthetics, featuring a towering mountain with a temple high above. The player begins in the town and follows a dirt path that winds around a corner, revealing the imposing mountain with birds circling overhead to draw attention and establish the temple as the primary objective.
+            </p>
+            <p class="content-text">
+                The level incorporated vertical progression through mountain climbing, using an aqueduct system that served both as environmental detail and a functional shortcut allowing players to quickly return to town or continue their ascent. Upon reaching a large crossing, players encounter a valve mechanism that creates a point of no return, committing them to the temple climb. At the summit, players obtain a key that unlocks the gate behind the temple, allowing progression to the next team member's level.
+            </p>
+            <p class="content-text">
+                Due to the scale of my level and the time constraints, I positioned my environment as the entry point and structural framework for the entire merged experience. This decision allowed me to create natural transitions between each team member's level while maintaining cohesive flow through the combined world.
+            </p>
+        </section>
+
+        <!-- Design Philosophy -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb"></i>
+                Design Philosophy
+            </h2>
+            <p class="content-text">
+                This project prioritized atmosphere over gameplay mechanics and world-building over player abilities. With limited movement options (jumping and climbing only), I focused on creating an environment that told its own story through spatial design and environmental details rather than relying on explicit gameplay systems.
+            </p>
+            <p class="content-text">
+                The circling birds above the temple weren't just decorative, they symbolized importance and naturally guided the player's eye upward toward the objective. The aqueduct connected the river to the town fountain, creating visual flow and establishing logical relationships between environmental elements. These choices aimed to make the world feel lived-in and purposeful, even without NPCs or explicit narrative.
+            </p>
+            <p class="content-text">
+                I deliberately used level design affordances like leading lines (the dirt path, the aqueduct), landmarks (the temple, the mountain), and motion (birds, flowing water) to create implicit guidance without UI elements. The barred path in town forced players to find alternative routes, while the point-of-no-return valve created commitment and tension during the final ascent.
+            </p>
+        </section>
+
+        <!-- Team Credits -->
+        <div class="team-credits">
+            <h3>
+                <i class="fas fa-users"></i>
+                Development Team - Level Sequence
+            </h3>
+            <ul class="team-list">
+                <li><strong>Level 1 (Hub):</strong> Zayne Anderson - Mediterranean Port Town & Mountain Temple</li>
+                <li><strong>Level 2:</strong> Jonathan Wegerdahl</li>
+                <li><strong>Level 3:</strong> Hallie Croxton</li>
+                <li><strong>Level 4:</strong> Burton Baldwin (Video Documentation)</li>
+                <li><strong>Level 5:</strong> Additional Team Member</li>
+            </ul>
+        </div>
+
+        <!-- Key Features -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                Key Features
+            </h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-mountain"></i></div>
+                    <h3 class="feature-title">Mediterranean Town Design</h3>
+                    <p class="feature-desc">Greek-inspired port town with organic pathways, aqueduct system, and environmental storytelling through architecture</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-arrow-up"></i></div>
+                    <h3 class="feature-title">Vertical Progression</h3>
+                    <p class="feature-desc">Mountain climbing with ledge navigation, aqueduct shortcuts, and commitment-driven valve mechanics</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-compass"></i></div>
+                    <h3 class="feature-title">Environmental Guidance</h3>
+                    <p class="feature-desc">No UI navigation, relying on affordances, leading lines, motion cues, and landmark positioning</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h3 class="feature-title">Five-Level Integration</h3>
+                    <p class="feature-desc">Hub level structure enveloping four team members' work with natural transitions between environments</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Process -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-tasks"></i>
+                Development Process
+            </h2>
+            
+            <div class="process-timeline">
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Initial Concept - Mediterranean Port Town</h3>
+                    <p class="timeline-desc">
+                        Established the core concept of a Greek-inspired port town with a mountain temple as the focal point. The assignment required incorporating leading lines, monuments, lighting, and movement, which informed the decision to create vertical progression through mountain climbing with the temple as the ultimate destination.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Town Layout and Pathways</h3>
+                    <p class="timeline-desc">
+                        Designed the town's organic dirt paths and building placement to create natural flow toward the mountain. Positioned the initial corner turn to reveal the mountain vista dramatically, establishing the scale and importance of the climb ahead. The barred path created an environmental puzzle that forced players to find the mountain route.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Mountain Terrain and Climbing Paths</h3>
+                    <p class="timeline-desc">
+                        Constructed the mountain using Unreal's landscape tools, creating a series of ledges and pathways that balance challenge with accessibility. Integrated the aqueduct both as environmental detail and functional shortcut, allowing players to return to town quickly or continue ascending. This dual purpose rewarded exploration while maintaining forward momentum.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Temple Construction and Key Objective</h3>
+                    <p class="timeline-desc">
+                        Built the temple at the mountain's summit with the key collection mechanic that unlocks the rear gate. Implemented the point-of-no-return valve at the large crossing to create commitment and raise tension during the final ascent, ensuring players couldn't second-guess their progress.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Team Level Integration Strategy</h3>
+                    <p class="timeline-desc">
+                        Due to the scale of my level and time constraints, determined that my environment should serve as the hub that envelopes the other four team members' levels. This structural decision allowed for better flow between disparate environments and gave the merged experience a cohesive starting point and progression logic.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Perforce Workflow and Communication Systems</h3>
+                    <p class="timeline-desc">
+                        Established Perforce version control practices for collaborative work. Created a dedicated project-status Discord channel that tracked who had what checked out, preventing merge conflicts and allowing team members to coordinate their work in real-time without rushing home from errands to check project status.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Final Integration and Polish</h3>
+                    <p class="timeline-desc">
+                        Merged all five levels into the unified super level, creating transitions and ensuring flow between environments. While the project emphasized speed over visual polish (similar to game jam constraints), the focus remained on functional level design that demonstrated understanding of spatial guidance principles.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Implementation -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-cog"></i>
+                Technical Stack
+            </h2>
+            
+            <div class="tech-stack">
+                <div class="tech-badge">
+                    <i class="fab fa-unreal-engine"></i>
+                    Unreal Engine 5.3
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-mountain"></i>
+                    Landscape Sculpting
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-cube"></i>
+                    Level Design Tools
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-code-branch"></i>
+                    Perforce Version Control
+                </div>
+                <div class="tech-badge">
+                    <i class="fab fa-discord"></i>
+                    Discord Communication
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-lightbulb"></i>
+                    Lighting Systems
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-tree"></i>
+                    Foliage Tools
+                </div>
+            </div>
+        </section>
+
+        <!-- Challenges & Solutions -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-puzzle-piece"></i>
+                Challenges & Solutions
+            </h2>
+            
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: Team Communication and Leadership</h3>
+                <p class="content-text">
+                    With five developers each bringing their own level, initial communication was chaotic. Everyone wanted to lead (too many chiefs, not enough Indians), and we lacked coordination about who was working on what parts of the project. This led to people accidentally checking out the same files in Perforce, creating conflicts and wasted effort.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    After discussing our individual strengths and project vision, the team agreed I was better suited to lead the integration effort. We established a dedicated project-status channel in our Discord server where team members posted real-time updates about what they had checked out in Perforce. This simple system allowed everyone to coordinate their work without stepping on each other's toes, and meant we didn't have to rush home from errands just to check project status, we could see everything in Discord.
+                </p>
+            </div>
+            
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: First-Time Perforce Learning</h3>
+                <p class="content-text">
+                    None of us had significant experience with Perforce version control before this project. We ran into merge conflicts multiple times, files getting locked out, and confusion about how to properly revert changes when something went wrong. The learning curve was steep, and mistakes meant losing work or breaking the build.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    Through trial and error (and some frustration), we learned how to properly revert changes to clear merge conflict lockouts. This hands-on experience with version control taught me the importance of proper branching, checking out only what you need, and communicating with team members before making major changes. The lessons learned here translated directly to better understanding of Git and version control methodology in general.
+                </p>
+            </div>
+            
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: Creating Engaging Level Design Without UI Guidance</h3>
+                <p class="content-text">
+                    The project had no UI elements, meaning all player guidance came from pure level design: affordances, leading lines, motion, and landmarks. The challenge was making the level interesting and clear without explicit waypoints or tutorials. My peers enjoyed exploring the world I created, but I recognized it needed more life and direction through narrative elements, quests, or activities to maintain engagement.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    I relied on environmental storytelling and spatial design principles. The circling birds above the temple drew eyes upward, the dirt path naturally guided players forward, the barred gate forced exploration, and the aqueduct provided both visual flow and functional purpose. While I recognized the level would benefit from NPCs, quests, and more frequent points of interest (activities every 7 seconds), the project taught me how to use pure spatial design to communicate player objectives. This experience revealed that while I can create atmospheric environments, my strength lies more in systems design and technical implementation than pure environmental artistry.
+                </p>
+            </div>
+        </section>
+
+        <!-- Key Learnings -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap"></i>
+                Key Learnings
+            </h2>
+            <p class="content-text">
+                This project taught me the critical importance of team communication infrastructure. The simple act of creating a Discord project-status channel transformed our chaotic workflow into coordinated collaboration. When working with version control systems like Perforce, visibility into what team members are doing isn't optional, it's essential. This lesson about establishing communication standards before diving into production work has influenced every team project since.
+            </p>
+            <p class="content-text">
+                Working with Perforce under pressure provided hands-on experience with version control that no tutorial could replicate. Learning how to navigate merge conflicts, properly revert changes, and coordinate file checkouts through trial and error built practical skills that transferred directly to Git and other version control systems. The frustration of dealing with lockouts taught me to be methodical about what I check out and when.
+            </p>
+            <p class="content-text">
+                From a design perspective, this project revealed both my strengths and areas for growth. Creating environmental guidance without UI forced me to think deeply about spatial design principles, how the player's eye moves through space, what elements communicate importance, and how to create implicit objectives through environmental design. The circling birds, the aqueduct flow, the mountain scale, these weren't decorative choices but functional communication tools.
+            </p>
+            <p class="content-text">
+                However, I also recognized that pure level design and environmental artistry aren't my primary strengths. While I can create atmospheric spaces and functional layouts, I found myself constantly thinking about what the level needed: NPCs, quests, narrative direction, activities every 7 seconds to maintain engagement. My instinct gravitates toward systems design and technical implementation rather than purely spatial artistry. This realization helped clarify my career direction toward game design roles that blend level design with systems work.
+            </p>
+            <p class="content-text">
+                The constraint of limited player movement (jumping and climbing only) taught me to design around limitations rather than fight them. Instead of wishing for more complex mechanics, I focused on making the existing movement meaningful through verticality, shortcuts, and commitment mechanics like the point-of-no-return valve. Working within constraints often produces more focused, coherent design than having unlimited options.
+            </p>
+            <p class="content-text">
+                Finally, this project demonstrated the value of game jam-style time constraints for learning. The pressure to merge five levels quickly meant we couldn't overthink decisions or get precious about individual work. We had to collaborate efficiently, make compromises, and focus on functionality over perfection. That scrappy, production-focused mindset is invaluable for actual game development timelines.
+            </p>
+        </section>
+
+        <!-- Future Development -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-forward"></i>
+                Future Development Possibilities
+            </h2>
+            <p class="content-text">
+                If I were to rebuild or expand this level, the first addition would be enhanced movement mechanics beyond basic jumping and climbing. The Mediterranean setting would benefit from parkour-style traversal, wall-running along aqueducts, or rope-swinging between building rooftops. These mechanics would make the vertical progression more dynamic and give players more agency in how they navigate the mountain.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-wheat-awn"></i></div>
+                    <h3 class="feature-title">Wheat Fields and Mill</h3>
+                    <p class="feature-desc">Adding wheat fields outside town with a working mill would create more environmental variety and provide additional movement opportunities through the landscape</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
+                    <h3 class="feature-title">NPC Interactions and Quests</h3>
+                    <p class="feature-desc">Town inhabitants with dialogue and quest systems would drive narrative direction and give players clear objectives beyond environmental exploration</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-book-open"></i></div>
+                    <h3 class="feature-title">Environmental Storytelling</h3>
+                    <p class="feature-desc">Readable notes, environmental clues, and background lore scattered through the town and mountain path to deepen world-building</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-route"></i></div>
+                    <h3 class="feature-title">Multiple Mountain Paths</h3>
+                    <p class="feature-desc">Alternative routes up the mountain with different difficulty levels and discoveries, rewarding exploration and player choice</p>
+                </div>
+            </div>
+            
+            <p class="content-text" style="margin-top: 2rem;">
+                The most critical addition would be NPC interactions and a quest system that provides narrative direction. Even simple fetch quests or dialogue trees would give players clear motivations for climbing the mountain beyond pure exploration. The town feels empty without inhabitants, and their presence would transform the space from scenic backdrop into living world.
+            </p>
+            
+            <p class="content-text">
+                I'd also implement more frequent points of interest, the "activities every 7 seconds" principle that keeps players engaged. This could include discoverable lore items, environmental puzzles that unlock shortcuts, optional collectibles that reward thorough exploration, or dynamic events like birds landing on specific perches to guide attention. The goal would be ensuring players always have something interesting to discover within a few seconds of movement.
+            </p>
+            
+            <p class="content-text">
+                From a technical perspective, rebuilding would involve more sophisticated Blueprint work for NPC behaviors, quest tracking, and dynamic events. The current version focused purely on static level design, but expansion would require systems that respond to player actions, track progress, and create emergent moments. This aligns better with my strengths in systems design and technical implementation.
+            </p>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <h2 class="cta-title">Explore More Projects</h2>
+            <p class="content-text">
+                Check out my other work to see different aspects of my game development skills, from horror level design to procedural generation systems.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="../projects_page.html" class="btn btn-primary">
+                    <i class="fas fa-folder-open"></i>
+                    View All Projects
+                </a>
+                <a href="../contact_page.html" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i>
+                    Get In Touch
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">
+            © 2025 Zayne Anderson. Crafted with passion for game development.
+        </p>
+    </footer>
+</body>
+</html>

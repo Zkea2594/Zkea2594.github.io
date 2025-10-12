@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focal Point - Horror Experience | Zayne Anderson</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --card-bg: #222222;
+            --accent-primary: #00ff88;
+            --accent-secondary: #0088ff;
+            --accent-tertiary: #ff0088;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #999999;
+            --border-color: #333333;
+            --gradient-primary: linear-gradient(135deg, #00ff88, #0088ff);
+            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Hero Section */
+        .project-hero {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(255, 0, 136, 0.1) 0%, transparent 70%);
+        }
+
+        .project-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .meta-item i {
+            color: var(--accent-primary);
+        }
+
+        /* Featured Media */
+        .featured-media {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .media-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        .media-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Video Showcase */
+        .video-showcase {
+            background: var(--secondary-bg);
+            padding: 4rem 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .video-showcase-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .video-showcase .section-title {
+            text-align: center;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 3rem;
+        }
+
+        .video-item {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .video-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: var(--primary-bg);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-title {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .video-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Content Section */
+        .project-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            color: var(--accent-primary);
+        }
+
+        .content-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .feature-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Process Timeline */
+        .process-timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient-primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            border: 3px solid var(--primary-bg);
+            box-shadow: 0 0 0 3px var(--accent-primary);
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .tech-badge {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Challenges & Solutions */
+        .challenge-card {
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent-tertiary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .challenge-title {
+            color: var(--accent-tertiary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-title {
+            color: var(--accent-primary);
+            font-size: 1rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            background: var(--secondary-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            margin: 4rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--primary-bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-secondary);
+            border: 2px solid var(--accent-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-secondary);
+            color: var(--primary-bg);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-bg);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .project-meta {
+                gap: 1rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .process-timeline {
+                padding-left: 1rem;
+            }
+
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+
+            .cta-section {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">Zayne Anderson</a>
+            <a href="../projects_page.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Projects
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="project-hero">
+        <h1 class="project-title">Focal Point</h1>
+        <p class="project-tagline">A Psychological Horror Level Design Experience</p>
+        
+        <div class="project-meta">
+            <div class="meta-item">
+                <i class="fas fa-calendar"></i>
+                <span>2024</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-user"></i>
+                <span>Solo Project</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-gamepad"></i>
+                <span>Horror / Stealth</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-code"></i>
+                <span>Unreal Engine</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Media -->
+    <section class="featured-media">
+        <div class="media-container">
+            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRi2dc4pBEj-X4YFWaYmyps2evwI9RHHNbbxM6eBkqgd-LsPFpcTN2-L2FWemJ3TA/embed?start=false&loop=false&delayms=3000" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- Video Showcase -->
+    <section class="video-showcase">
+        <div class="video-showcase-container">
+            <h2 class="section-title">
+                <i class="fas fa-play-circle"></i>
+                Development Videos
+            </h2>
+            
+            <div class="video-grid">
+                <div class="video-item">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/jyb417K8X4U?si=M-V6hCQN_dkdFsHj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Dynamic Power System Implementation</h3>
+                        <p class="video-description">
+                            Demonstration of the stateful power grid system built in Blueprints. When power fails, the system tracks which devices were active, lights, electronics, etc. Upon power restoration, only previously-active devices turn back on, maintaining environmental consistency. This creates realistic cause-and-effect that rewards player observation and planning.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="video-item">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/Ntuwwqyu9PM?si=-Md-PyzT9tFzW1HY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Evidence Collection System Blueprint</h3>
+                        <p class="video-description">
+                            Technical walkthrough of the evidence tracking mechanic. Shows how the camera validates photographed objects against a database of relevant clues, updates collection status, and provides player feedback. Includes practical demonstration of the system working in-game environment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <div class="project-content">
+        <!-- Overview -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                Project Overview
+            </h2>
+            <p class="content-text">
+                Focal Point (originally titled "Dinner Party") began as an exploration of escape room mechanics combined with survival horror elements. The core concept emerged from a fascination with surveillance and the vulnerability of being watched, inspired by a friend's Unity project featuring observational cameras.
+            </p>
+            <p class="content-text">
+                The design evolved into a "Wrong Turn" scenario: the player awakens in a basement prison cell, captured by an unknown antagonist. After escaping the cell, the player discovers the very camera that was recording them, transforming from victim to investigator. This camera becomes both a survival tool and evidence-gathering device, creating unique gameplay tension between documentation and self-preservation.
+            </p>
+            <p class="content-text">
+                What makes this project particularly interesting is the dynamic item spawning system. Required escape items randomize their locations each playthrough, ensuring no two attempts follow the same path. Players might find keys in the kitchen during one session and hidden in the bedroom during another, forcing adaptation and thorough exploration rather than route memorization.
+            </p>
+        </section>
+
+        <!-- Design Philosophy -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb"></i>
+                Design Philosophy
+            </h2>
+            <p class="content-text">
+                The camera mechanic serves multiple purposes simultaneously: it's a light source when darkness falls, a tool for collecting prosecutable evidence, and a psychological anchor. By making players carry the instrument of their own surveillance, I created a constant reminder of their vulnerability while giving them agency to turn that tool into their salvation.
+            </p>
+            <p class="content-text">
+                The decision to implement dynamic spawning came from wanting to avoid the common escape room pitfall where players simply memorize solutions. By randomizing key item locations, I force players to genuinely explore and think spatially about the environment each time, maintaining tension even across multiple playthroughs.
+            </p>
+        </section>
+
+        <!-- Key Features -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                Key Features
+            </h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3 class="feature-title">Stateful Power System</h3>
+                    <p class="feature-desc">Power grid tracks device states. Lights and electronics remember if they were on when power fails and restore accordingly</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-video"></i></div>
+                    <h3 class="feature-title">Dual-Purpose Camera</h3>
+                    <p class="feature-desc">Former surveillance tool becomes both flashlight and evidence collector, creating risk-reward decisions</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-random"></i></div>
+                    <h3 class="feature-title">Dynamic Item Spawning</h3>
+                    <p class="feature-desc">Randomized key item locations ensure unique playthroughs and prevent memorization-based solutions</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-search"></i></div>
+                    <h3 class="feature-title">Evidence Tracking</h3>
+                    <p class="feature-desc">Camera validates photographed objects against database, updating collection status with visual feedback</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Process -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-tasks"></i>
+                Development Process
+            </h2>
+            
+            <div class="process-timeline">
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Initial Concept - Surveillance & Escape Rooms</h3>
+                    <p class="timeline-desc">
+                        Inspired by a friend's Unity project featuring observational cameras, I began exploring how surveillance could create psychological tension. Combined this with escape room mechanics to create a scenario where the player transitions from observed victim to active investigator.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Narrative Framework - Wrong Turn Scenario</h3>
+                    <p class="timeline-desc">
+                        Developed the core premise: player awakens imprisoned in a basement cell. The discovery of the surveillance camera becomes a pivotal moment, what was used against the player becomes their tool for survival and justice. This reversal creates both mechanical and emotional investment.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Stateful Power System Development</h3>
+                    <p class="timeline-desc">
+                        Built a sophisticated power grid that doesn't just toggle lights on and off. The system tracks every powered device's state when power fails: which lights were on, which electronics were running. When power returns via breaker box interaction, only previously-active devices restore. This creates environmental consistency and rewards players who pay attention to which areas were lit before darkness falls.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Evidence System Implementation</h3>
+                    <p class="timeline-desc">
+                        Built the evidence collection mechanic in Blueprints, creating a system that validates photographed objects against a target database. When players aim the camera at valid evidence and capture it, the system registers the collection, provides visual feedback, and updates the player's objective tracker. This transforms the camera from simple tool into a strategic gameplay element.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Dynamic Spawning System</h3>
+                    <p class="timeline-desc">
+                        Implemented randomized spawn locations for critical items like keys, tools, and escape materials. This system prevents players from memorizing solutions and ensures each playthrough requires genuine exploration. Items might spawn in the kitchen, bedroom, or bathroom, players must search thoroughly every time.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Environment Design & Multiple Exit Strategies</h3>
+                    <p class="timeline-desc">
+                        Designed the two-story house with multiple viable escape routes. Depending on which items spawn where, players might break a window, pick a lock, or find hidden passages. This creates emergent problem-solving where the environment's layout supports multiple solutions based on available resources.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Documentation & Future AI Planning</h3>
+                    <p class="timeline-desc">
+                        While the AI antagonist wasn't implemented in this phase, I documented the intended behavior systems and patrol patterns. Created comprehensive design documentation including the full presentation, technical breakdowns, and system design that could be handed off for AI implementation in future iterations.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Future Development -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-forward"></i>
+                Planned Future Development
+            </h2>
+            <p class="content-text">
+                The next major phase for Focal Point involves implementing the AI antagonist system, transforming the experience from environmental puzzle into active survival horror. The groundwork laid by the power grid, evidence system, and dynamic spawning creates the perfect foundation for tension-driven gameplay.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-brain"></i></div>
+                    <h3 class="feature-title">Adaptive AI Behavior</h3>
+                    <p class="feature-desc">Patrol patterns that respond to player noise, light usage, and evidence collection activities</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shoe-prints"></i></div>
+                    <h3 class="feature-title">Dynamic Pursuit</h3>
+                    <p class="feature-desc">Chase sequences that force players to constantly move and utilize the environment strategically</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-eye-slash"></i></div>
+                    <h3 class="feature-title">Hiding Mechanics</h3>
+                    <p class="feature-desc">Closets, under beds, and environmental cover that offer temporary safety with risk of discovery</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-volume-up"></i></div>
+                    <h3 class="feature-title">Audio Detection</h3>
+                    <p class="feature-desc">Sound-based AI awareness that punishes running and rewards careful movement</p>
+                </div>
+            </div>
+            
+            <p class="content-text" style="margin-top: 2rem;">
+                The AI system would leverage the existing stateful power grid, creating strategic decisions around when to restore power. Turn it on for visibility but alert the antagonist to your location? Or stay in darkness with limited camera battery? The evidence system also gains new meaning when gathering proof requires exposing yourself to detection. Every photograph becomes a risk-reward calculation.
+            </p>
+            
+            <p class="content-text">
+                Hiding locations would integrate with the dynamic item spawn system. Players might find keys while hiding under a bed, or discover escape tools in closets, rewarding risk-taking while maintaining tension. The goal is creating a cat-and-mouse experience where player movement, resource management, and strategic hiding all work together to build sustained psychological pressure.
+            </p>
+        </section>
+
+        <!-- Technical Implementation -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-cog"></i>
+                Technical Stack
+            </h2>
+            
+            <div class="tech-stack">
+                <div class="tech-badge">
+                    <i class="fab fa-unreal-engine"></i>
+                    Unreal Engine 5
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-project-diagram"></i>
+                    Blueprint Visual Scripting
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-cube"></i>
+                    Level Design Tools
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-lightbulb"></i>
+                    Lighting Systems
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-network-wired"></i>
+                    Stateful Systems
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-database"></i>
+                    Object Validation
+                </div>
+            </div>
+        </section>
+
+        <!-- Challenges & Solutions -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-puzzle-piece"></i>
+                Challenges & Solutions
+            </h2>
+            
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: Creating Realistic Power Behavior</h3>
+                <p class="content-text">
+                    When power cuts out in real life, not everything turns back on automatically, devices remember their state. Game environments often cheat this for simplicity, but I wanted authentic cause-and-effect relationships.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    Implemented a centralized power manager in Blueprints that maintains an array of all powered devices (lights, appliances, electronics) and their states. When power fails, each device stores its "was I active?" boolean. The breaker box interaction triggers a power restore event that queries each device. Only those flagged as previously-active turn back on. This creates environmental logic that feels real and rewards observant players who remember which rooms were lit.
+                </p>
+            </div>
+            
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: Validating Evidence Without Breaking Immersion</h3>
+                <p class="content-text">
+                    The camera needed to recognize relevant evidence while ignoring random objects, but validation couldn't feel arbitrary or break the player's suspension of disbelief with obvious UI prompts.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    Built a tag-based validation system where evidence objects carry specific identifiers. When the camera's raycast hits an object, it checks for evidence tags and validates against the uncollected evidence database. Valid evidence provides subtle visual feedback (slight highlight or focus effect) rather than blunt UI elements. The system tracks collection state and prevents duplicate captures while maintaining the feeling of organic discovery.
+                </p>
+            </div>
+            
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: Preventing Memorization in Escape Scenarios</h3>
+                <p class="content-text">
+                    Traditional escape rooms suffer from predictability, once you know the solution, subsequent attempts lose all tension. I needed to maintain replay value and genuine exploration.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    Built a dynamic spawning system using Blueprint spawn points with weighted randomization. Critical items spawn in different valid locations each playthrough. The wrench might be in the toolbox one game, under the bathroom sink another time, and in a kitchen drawer the next. Players must genuinely search and can't rely on previous knowledge, maintaining tension across multiple attempts.
+                </p>
+            </div>
+        </section>
+
+        <!-- What I Learned -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap"></i>
+                Key Learnings
+            </h2>
+            <p class="content-text">
+                Building the stateful power system taught me the importance of environmental consistency in creating believable game worlds. Players subconsciously notice when things behave realistically versus when they take shortcuts. The power grid that remembers device states feels more authentic than simple on/off switches, even though most players won't consciously think "wow, that light remembered it was on." They'll just feel the world is more real, more responsive. That attention to systemic detail is what separates good environmental design from great.
+            </p>
+            <p class="content-text">
+                The evidence tracking system revealed how to create interconnected game systems that communicate through Blueprint interfaces. The camera doesn't just "take pictures", it performs raycasts, validates against databases, updates objective trackers, manages collection states, and provides player feedback. Understanding how to architect these interdependent systems while maintaining clean, debuggable nodes was crucial for scalability.
+            </p>
+            <p class="content-text">
+                The dynamic spawning system taught me to think probabilistically about player experience. Pure random spawns could break fairness, but weighted spawn points with validation checks ensure viable gameplay every time. This mindset, designing systems that create controlled randomness rather than pure chaos, applies beyond item placement to AI behaviors, loot tables, and procedural generation.
+            </p>
+            <p class="content-text">
+                Perhaps most valuable was learning to work within constraints productively. Not implementing AI initially wasn't a limitation, it was a focusing mechanism. By building robust systems first (power grid, evidence tracking, dynamic spawning), I created a solid foundation that will make AI integration more meaningful. The antagonist won't just be an enemy that chases; it will interact with a living, stateful environment that already has depth and logic.
+            </p>
+            
+            <p class="content-text">
+                This project also taught me the importance of designing for future expansion. The centralized power manager, evidence database, and spawn point system are all architected to accept new features. Adding AI patrol routes that respond to light states, or hiding spots that integrate with the spawn system, won't require rebuilding, just extension. Good foundation work enables ambitious iteration without technical debt.
+            </p>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <h2 class="cta-title">Interested in More Details?</h2>
+            <p class="content-text">
+                View the complete design document or explore more of my projects to see different aspects of my game development work.
+            </p>
+            
+            <div class="cta-buttons">                
+                <a href="../projects_page.html" class="btn btn-secondary">
+                    <i class="fas fa-folder-open"></i>
+                    More Projects
+                </a>
+                <a href="../contact_page.html" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i>
+                    Get In Touch
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">
+            © 2025 Zayne Anderson. Crafted with passion for game development.
+        </p>
+    </footer>
+</body>
+</html>
