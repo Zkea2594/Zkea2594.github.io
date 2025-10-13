@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top-Down Zombie Shooter | Zayne Anderson</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --card-bg: #222222;
+            --accent-primary: #00ff88;
+            --accent-secondary: #0088ff;
+            --accent-tertiary: #ff0088;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #999999;
+            --border-color: #333333;
+            --gradient-primary: linear-gradient(135deg, #00ff88, #0088ff);
+            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-primary);
+        }
+
+        .project-hero {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(0, 136, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .project-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .meta-item i {
+            color: var(--accent-primary);
+        }
+
+        .featured-media {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .media-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        .media-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .project-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            color: var(--accent-primary);
+        }
+
+        .content-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-credits {
+            background: var(--secondary-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .team-credits h3 {
+            color: var(--accent-secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .team-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .team-list li {
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .team-list li:last-child {
+            border-bottom: none;
+        }
+
+        .team-list li strong {
+            color: var(--text-primary);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .feature-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .process-timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient-primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            border: 3px solid var(--primary-bg);
+            box-shadow: 0 0 0 3px var(--accent-primary);
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .system-breakdown {
+            background: var(--secondary-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .system-breakdown .section-title {
+            color: var(--accent-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .system-item {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .system-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .system-item-title {
+            font-size: 1.3rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .system-item-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .tech-badge {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .challenge-card {
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent-tertiary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .challenge-title {
+            color: var(--accent-tertiary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-title {
+            color: var(--accent-primary);
+            font-size: 1rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .cta-section {
+            background: var(--secondary-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            margin: 4rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--primary-bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-secondary);
+            border: 2px solid var(--accent-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-secondary);
+            color: var(--primary-bg);
+        }
+
+        .footer {
+            background: var(--primary-bg);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .project-meta {
+                gap: 1rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-timeline {
+                padding-left: 1rem;
+            }
+
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+
+            .cta-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .system-breakdown {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">Zayne Anderson</a>
+            <a href="../projects_page.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Projects
+            </a>
+        </div>
+    </nav>
+
+    <section class="project-hero">
+        <h1 class="project-title">Top-Down Zombie Shooter</h1>
+        <p class="project-tagline">Dead Ops Arcade-Inspired Procedural Level Assembly System</p>
+        
+        <div class="project-meta">
+            <div class="meta-item">
+                <i class="fas fa-calendar"></i>
+                <span>2024</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-users"></i>
+                <span>5-Person Team</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-gamepad"></i>
+                <span>Top-Down Shooter / Arcade</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-clock"></i>
+                <span>3 Weeks</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-code"></i>
+                <span>Unreal Engine 5.3</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-media">
+        <div class="media-container">
+            <iframe src="https://www.youtube.com/embed/Tp-qrgaAe_Y" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <div class="project-content">
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                Project Overview
+            </h2>
+            <p class="content-text">
+                This single-player top-down shooter was developed in three weeks as a team project inspired by Call of Duty: Black Ops' Dead Ops Arcade mode. My primary responsibility was leading the design and implementation of the procedural room assembly system, which spawns and connects pre-built room layouts to create unique level configurations for each playthrough. The project also included player HUD development, player controller implementation, and overall system architecture decisions.
+            </p>
+            <p class="content-text">
+                The room assembly system uses a minimal parent Blueprint (BP_RoomBase) that provides foundation structure: a platform, starting point, and scene component for the Exits List. All child rooms inherit from this parent but are individually hand-built with their own unique layouts. Examples include BP_StartingRoom (player spawn), BP_Hallway (straight corridor), BP_LeftHallway (left turn), and BP_MedBay (dead-end room with medical beds and no exits). The procedural element comes from which rooms spawn, where they connect, and how the system validates available exits.
+            </p>
+            <p class="content-text">
+                Rooms generate by checking the Exits List, validating collision boundaries through collision boxes, and spawning connected child room prefabs that form cohesive level layouts. A counter-clockwise hole-plugging algorithm ensures clean level boundaries by sequentially placing fences and corner pieces that detect neighboring geometry and adapt accordingly. This modular approach allows rapid room variety expansion—designers can create new child Blueprints inheriting from BP_RoomBase without modifying core spawning logic.
+            </p>
+            <p class="content-text">
+                The game currently features a single zombie type with AI pathfinding, one rifle weapon, and three deployable turrets. Players navigate the procedurally assembled rooms while fighting escalating zombie waves. Currently, the game reaches Wave 4 before encountering a crash bug that represents the primary target for future development. Time constraints significantly impacted scope—while I dedicated the full week to development, most team members contributed primarily during the final weekend before the deadline.
+            </p>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb"></i>
+                Design Philosophy
+            </h2>
+            <p class="content-text">
+                The core design philosophy centers on replayability through procedural room assembly rather than hand-crafted level memorization. Each session presents fresh spatial configurations by spawning different combinations of pre-built room prefabs and connecting them through the exit validation system. The BP_RoomBase architecture ensures that assembled levels maintain gameplay functionality even when visual variety is limited, prioritizing fair layouts and tactical options over aesthetic diversity given the three-week timeline.
+            </p>
+            <p class="content-text">
+                The modular prefab approach trades pure procedural generation for reliable content creation. Rather than algorithmically generating room geometry that might produce unfair or broken layouts, the system spawns hand-built child rooms that designers have validated individually. This hybrid approach provides procedural unpredictability in level configuration while maintaining the quality control of hand-crafted spaces. Dead-end rooms like BP_MedBay add natural termination points that create variety in path flow.
+            </p>
+            <p class="content-text">
+                The arcade mentality manifests through wave-based progression that eventually guarantees failure rather than offering victory conditions. Players chase "how long can you survive" rather than "can you complete the game," transforming each session into a score-chasing attempt. While the current implementation reaches Wave 4 before crashing, the underlying design supports infinite scaling where difficulty increases faster than player power, maintaining the arcade tradition of inevitable death driving replayability.
+            </p>
+            <p class="content-text">
+                Technical constraints shaped design decisions throughout development. The single zombie type and rifle weapon reflect the reality of a three-week timeline with uneven team availability rather than deliberate minimalism. However, these limitations forced focus on core systems—the room assembly architecture, player controller responsiveness, and AI pathfinding—that provide a solid foundation for future content expansion without requiring system rewrites. Additional room prefabs, zombie types, and weapons could be added through the existing modular structure.
+            </p>
+        </section>
+
+        <div class="team-credits">
+            <h3>
+                <i class="fas fa-users"></i>
+                Development Team
+            </h3>
+            <ul class="team-list">
+                <li><strong>Zayne Anderson (Lead):</strong> Procedural Room Assembly System, Player HUD, Player Controller</li>
+                <li><strong>Alecsander Ridgway:</strong> Health Pickup System, Damage Pickup Mechanics</li>
+                <li><strong>William Johnson:</strong> Deployable Turret System</li>
+                <li><strong>Gavin Finning:</strong> Menu System Implementation</li>
+                <li><strong>Frank Toney:</strong> Zombie AI Behavior, QA Testing, Performance Optimization</li>
+            </ul>
+        </div>
+
+        <div class="team-credits" style="margin-top: 1rem; background: rgba(255, 0, 136, 0.05); border: 1px solid rgba(255, 0, 136, 0.3);">
+            <h3 style="color: var(--accent-tertiary);">
+                <i class="fas fa-exclamation-circle"></i>
+                Development Context
+            </h3>
+            <p class="content-text" style="margin: 0; font-size: 0.95rem;">
+                This three-week project faced significant time constraint challenges. While I dedicated the full week to development, most team members contributed primarily over the final weekend before the deadline. Despite these limitations, the core procedural room assembly system and arcade gameplay mechanics were successfully implemented. The game currently reaches Wave 4 before encountering a crash bug that would be the first priority in continued development.
+            </p>
+        </div>
+
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                Key Features
+            </h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-random"></i></div>
+                    <h3 class="feature-title">Procedural Room Assembly</h3>
+                    <p class="feature-desc">Algorithm spawns and connects pre-built room prefabs with validated exit placement, collision checking, and strategic dead-end rooms for endless layout variety</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-layer-group"></i></div>
+                    <h3 class="feature-title">Wave-Based Progression</h3>
+                    <p class="feature-desc">Zombie waves increase in difficulty as players progress, with spawn rates and enemy counts escalating to create mounting challenge (currently functional through Wave 4)</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-hammer"></i></div>
+                    <h3 class="feature-title">Modular Room Prefab System</h3>
+                    <p class="feature-desc">Hand-built child room Blueprints (hallways, turns, dead-ends) inherit from minimal parent structure, enabling rapid content creation without modifying core spawning logic</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-crosshairs"></i></div>
+                    <h3 class="feature-title">Arcade-Style Combat</h3>
+                    <p class="feature-desc">Responsive top-down controller with rifle weapon, deployable turrets for area control, and clear HUD feedback for health, wave count, and remaining enemies</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-tasks"></i>
+                Development Process
+            </h2>
+            
+            <div class="process-timeline">
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Week 1: Concept and Architecture Planning</h3>
+                    <p class="timeline-desc">
+                        Researched Dead Ops Arcade gameplay mechanics and established the core vision for procedural generation-driven replayability. Designed the BP_RoomBase parent class architecture with standardized X=1 orientation for consistent spawn logic. Divided tasks among the five-person team: I would lead procedural generation and player systems, Frank would handle zombie AI, Alecsander would implement pickups, William would build turret mechanics, and Gavin would create menu systems. Established Perforce as version control and communication protocols for the distributed team.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Week 1-2: Procedural Room Assembly System Development</h3>
+                    <p class="timeline-desc">
+                        Built the core room assembly algorithm using the BP_RoomBase parent system. Implemented the Exits List tracking and collision box validation to prevent overlapping geometry. Developed the counter-clockwise hole-plugging algorithm through extensive iteration, testing different approaches until discovering the sequential fence-then-corner checking methodology that reliably closed level boundaries. Created the modular room spawning system that allows new room types to be added without modifying core generation logic. Built hand-crafted child room prefabs: BP_StartingRoom, BP_Hallway, BP_LeftHallway, BP_MedBay, and others.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Week 2: Player Systems and HUD Implementation</h3>
+                    <p class="timeline-desc">
+                        Developed the player controller with top-down camera following and shooting mechanics. Built the Player HUD to display health, remaining zombie count, and wave progression. Encountered the wave counter bug that displayed "Wave 0" persistently, initially treating it as a lower-priority issue to address after core functionality was complete. Integrated player movement with the procedurally assembled rooms, ensuring collision detection worked correctly across varied prefab layouts.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Week 2: Zombie AI and Nav Mesh Solution</h3>
+                    <p class="timeline-desc">
+                        Frank implemented zombie AI pathfinding using Unreal's navigation system. Discovered that the nav mesh wouldn't update for procedurally spawned room prefabs. Developed the workaround solution: Level Blueprint moves the nav mesh bounds volume 1 point on the X axis and back after each room assembly completes, forcing Unreal to redraw navigation lines. This inelegant but functional approach enabled zombie pathfinding across generated spaces without manual nav mesh rebuilds or runtime generation systems.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Week 3: Component Integration and Final Weekend Push</h3>
+                    <p class="timeline-desc">
+                        Most team members completed their assigned components during the final weekend before submission. Alecsander implemented health and damage pickups, William built the deployable turret system, and Gavin created the menu interface. Integrated all systems into the unified project through Perforce, encountering some merge conflicts but resolving them through communication. The uneven time investment (my full week versus others' weekend contributions) meant some planned features like multiple zombie types and additional weapons remained unimplemented.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Week 3: Bug Discovery and Final Cleanup</h3>
+                    <p class="timeline-desc">
+                        During final cleanup, attempted to delete unused assets to reduce project size. Deleted what appeared to be an unnecessary Game Manager Blueprint, which immediately broke the game and revealed the source of the wave counter bug. The HUD had been referencing wave data from the "unused" manager rather than the active player systems. Rebuilt the HUD to reference the Player Character directly, which resolved the wave counter issue. Submitted the project with functional procedural room assembly, working player systems, and zombie AI, though the Wave 4 crash bug remained unresolved within the deadline.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="system-breakdown">
+            <h2 class="section-title">
+                <i class="fas fa-cogs"></i>
+                Procedural Room Assembly System Breakdown
+            </h2>
+            
+            <div class="system-item">
+                <h3 class="system-item-title">
+                    <i class="fas fa-cube"></i>
+                    BP_RoomBase Minimal Parent Structure
+                </h3>
+                <p class="system-item-desc">
+                    Built a minimal parent Blueprint (BP_RoomBase) that provides foundation structure all child rooms need: a platform base, starting point marker, and scene component for the Exits List. This parent contains no room layout geometry itself—it exists purely to define the interface that all child rooms must implement. Every child room inherits from BP_RoomBase and starts at the X=1 orientation, ensuring spawn locations are predictable in the X direction from world origin (0,0,0).
+                </p>
+            </div>
+
+            <div class="system-item">
+                <h3 class="system-item-title">
+                    <i class="fas fa-hammer"></i>
+                    Hand-Built Child Room Prefabs
+                </h3>
+                <p class="system-item-desc">
+                    Each child room (BP_StartingRoom, BP_Hallway, BP_LeftHallway, BP_MedBay, etc.) is individually constructed with custom geometry and layout. BP_StartingRoom contains the player spawn point. BP_Hallway creates straight corridors. BP_LeftHallway provides 90-degree left turns. BP_MedBay represents dead-end rooms with medical beds and no exits. The procedural system spawns these pre-built prefabs rather than generating room geometry algorithmically. This modular approach allows designers to create diverse room types by building new child Blueprints without touching core spawning logic.
+                </p>
+            </div>
+
+            <div class="system-item">
+                <h3 class="system-item-title">
+                    <i class="fas fa-door-open"></i>
+                    Exits List and Connection Validation
+                </h3>
+                <p class="system-item-desc">
+                    Each room maintains an Exits List tracking all possible connection points defined in that room's layout. When the system spawns a connecting room, that exit is removed from the available pool. Collision boxes validate exit availability before spawning, checking for obstructions or overlapping geometry. This prevents rooms from spawning inside each other or creating impossible spatial configurations. The system checks each potential exit, spawns appropriate child room types, and manages the connection logic between prefabs.
+                </p>
+            </div>
+
+            <div class="system-item">
+                <h3 class="system-item-title">
+                    <i class="fas fa-fill-drip"></i>
+                    Counter-Clockwise Hole Plugging Algorithm
+                </h3>
+                <p class="system-item-desc">
+                    After spawning the core room structure, the system identifies exposed exterior edges (maximum 2 fields outward) and plugs gaps using a counter-clockwise detection algorithm. Fences spawn first, then check for neighbors. If a neighbor exists, skip action. If no neighbor is detected to the left, create Corner Left. Then check right: if no neighbor exists, create Corner Right. If Corner Left already exists, delete it and spawn Inside Corner instead. This iterative approach reliably closes level boundaries regardless of which child room prefabs the system selected during assembly.
+                </p>
+            </div>
+
+            <div class="system-item">
+                <h3 class="system-item-title">
+                    <i class="fas fa-route"></i>
+                    Dynamic Nav Mesh Regeneration
+                </h3>
+                <p class="system-item-desc">
+                    Zombie AI pathfinding required a functioning nav mesh across the spawned room prefabs. Since Unreal's nav mesh bakes to static geometry, I implemented a workaround: the Level Blueprint moves the nav mesh 1 point on the X plane back and forth after each room assembly completes. This forces Unreal to redraw navigation lines, creating functional pathfinding across the newly spawned prefabs without manual rebuilds or runtime nav mesh generation systems.
+                </p>
+            </div>
+
+            <div class="system-item">
+                <h3 class="system-item-title">
+                    <i class="fas fa-search"></i>
+                    Neighbor Detection and Boundary Assembly
+                </h3>
+                <p class="system-item-desc">
+                    The fence-spawning system uses neighbor detection to determine what geometry exists adjacent to each exterior edge. By checking counter-clockwise from each potential spawn point, the algorithm identifies whether to place walls, corners, or interior transitions. This context-aware approach creates clean level boundaries around the assembled room prefabs that feel hand-crafted rather than algorithmically generated. Dead-end rooms like BP_MedBay (which have no exits) naturally terminate paths, adding variety to the level flow.
+                </p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-cog"></i>
+                Technical Stack
+            </h2>
+            
+            <div class="tech-stack">
+                <div class="tech-badge">
+                    <i class="fab fa-unreal-engine"></i>
+                    Unreal Engine 5.3
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-project-diagram"></i>
+                    Blueprint Visual Scripting
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-puzzle-piece"></i>
+                    Modular Prefab System
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-route"></i>
+                    AI Navigation System
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-video"></i>
+                    Top-Down Camera System
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-desktop"></i>
+                    UI Widget System
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-code-branch"></i>
+                    Perforce Version Control
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-user"></i>
+                    Single-Player Architecture
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-puzzle-piece"></i>
+                Challenges & Solutions
+            </h2>
+            
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: Closing Procedural Assembly Holes</h3>
+                <p class="content-text">
+                    The most significant technical challenge in the procedural assembly system was reliably plugging holes where room edges met empty space. Early attempts produced gaps in level boundaries, overlapping corner pieces, and inconsistent fence placement. Testing iteration after iteration revealed no consistent pattern until I fundamentally rethought the approach from simultaneous checking to sequential validation.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    Developed a counter-clockwise checking algorithm that spawns fences first, then has each fence check for neighbors. If a neighbor already exists, skip action to prevent duplicates. If no left neighbor is detected, create Corner Left. After that, run right detection: if no neighbor exists, create Corner Right. If Corner Left was already detected, delete Corner Left and spawn Inside Corner instead. This sequential approach transformed an unreliable random process into a deterministic algorithm that cleanly closes level boundaries every time.
+                </p>
+            </div>
+            
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: Player HUD Wave Counter Displaying "Wave 0"</h3>
+                <p class="content-text">
+                    The Player HUD successfully displayed accurate health and remaining zombie counts, but the wave counter stubbornly remained stuck at "Wave 0" regardless of progression. After extensive Blueprint debugging yielded no obvious cause, the team moved on to other priorities, assuming it was a hidden engine bug. The real issue only surfaced during final cleanup when I deleted what appeared to be unnecessary project files.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    While cleaning unused assets before submission, I deleted a Game Manager Blueprint we had decided not to use early in development. This immediately broke the entire game, revealing that the Player HUD had been referencing wave data from that "unused" manager. The wave counter wasn't broken—it was reading from an object that never updated because we weren't using it. Once discovered, I rebuilt the HUD to reference wave data from the Player Character instead, and the counter worked seamlessly. This taught me to trace all Blueprint references before assuming assets are truly unused.
+                </p>
+            </div>
+            
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: Dynamic Nav Mesh for Procedural Room Prefabs</h3>
+                <p class="content-text">
+                    Zombie AI required functional pathfinding to navigate procedurally assembled room prefabs, but Unreal's nav mesh system bakes navigation data to static geometry at editor time. Procedurally spawned actors don't automatically update the nav mesh, meaning zombies would path through walls or stand motionless because they couldn't calculate valid routes through the newly assembled room prefabs.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    Implemented a workaround in the Level Blueprint that moves the nav mesh bounds volume 1 point along the X axis and back after each room assembly. This tiny movement forces Unreal to redraw navigation lines, effectively rebuilding pathfinding data for the new prefabs without manual intervention. The solution is inelegant but functional, trading architectural purity for practical results within the three-week timeline. A production implementation would likely use Unreal's Runtime Nav Mesh generation or C++ navigation API for cleaner execution.
+                </p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap"></i>
+                Key Learnings
+            </h2>
+            <p class="content-text">
+                Leading the procedural room assembly system taught me the importance of deep technical ownership. When I could explain exactly how the room spawning, exit validation, and hole-plugging algorithm worked while team members couldn't articulate the system's internals, it reinforced that true leadership requires mastery of the technical details, not just project management. Being the go-to person for questions about how room prefabs connected or why certain exits failed validation meant I had to maintain clear mental models of the entire assembly pipeline.
+            </p>
+            <p class="content-text">
+                The counter-clockwise hole-plugging algorithm demonstrated that procedural systems require extensive iteration to discover reliable patterns. Early approaches using simultaneous checking produced inconsistent results that seemed random until I shifted to sequential validation. This taught me that "test over and over until you find the methodology that works every time" is not just acceptable but necessary for procedural systems. Elegant solutions emerge from persistent experimentation, not initial design documents.
+            </p>
+            <p class="content-text">
+                The hybrid approach of hand-built room prefabs with procedural assembly revealed an important design insight: pure procedural generation isn't always superior to modular prefab systems. By building individual child room Blueprints and letting the system handle spawning/connection logic, I gained the benefits of procedural variety without the validation complexity of algorithmic geometry generation. This modular approach trades some unpredictability for guaranteed quality—a worthwhile tradeoff given the three-week timeline.
+            </p>
+            <p class="content-text">
+                Time constraint imbalances created significant challenges that no amount of communication could fully solve. While I dedicated the entire week to development, most team members contributed primarily over the final weekend. This disparity taught me that project success depends on realistic capacity planning rather than optimistic commitments. The experience reinforced that sustainable development requires either matching time investment across the team or scoping features appropriately for available resources.
+            </p>
+            <p class="content-text">
+                The HUD bug discovery revealed the danger of making assumptions about "unused" code. Deleting what appeared to be unnecessary assets exposed hidden dependencies I hadn't traced through the Blueprint reference network. This experience taught me to use Unreal's Reference Viewer extensively before removing anything, and to question whether an asset is truly unused or simply not obviously connected. In interconnected systems, nothing is unused until you've verified every possible reference path.
+            </p>
+            <p class="content-text">
+                Finally, the modular BP_RoomBase architecture proved that well-designed parent classes enable rapid content creation. Because all room prefabs inherit the same structure and follow the same exit system, adding new room types required no core logic changes. This reinforced that investing time in solid foundational architecture pays dividends throughout development, even on short-timeline projects. Good systems design enables team members with varying skill levels to contribute meaningfully—anyone can build a new child room Blueprint and add it to the spawn pool without understanding the assembly algorithm's implementation details.
+            </p>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-forward"></i>
+                Future Development Possibilities
+            </h2>
+            <p class="content-text">
+                The immediate priority for continued development would be resolving the Wave 4 crash that currently limits playability. Once stability is addressed, the modular room assembly system's architecture enables numerous expansion possibilities without requiring fundamental system rewrites. The BP_RoomBase parent class structure supports adding new room prefabs, mechanics, and environmental variety through child Blueprints rather than core logic modifications.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-building"></i></div>
+                    <h3 class="feature-title">Wing-Based Room Assembly</h3>
+                    <p class="feature-desc">Generic rooms spawn first, then 3 random exits transform into specialized wing entrances: Science Labs, Military Barracks, or Prison Cells. Each wing maintains thematic consistency while connecting naturally to generic spaces.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
+                    <h3 class="feature-title">Cooperative Multiplayer</h3>
+                    <p class="feature-desc">Add cooperative multiplayer support for 2-4 players with revive systems, shared score bonuses, and complementary weapon spawns that reward coordinated play over splitting up.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-skull-crossbones"></i></div>
+                    <h3 class="feature-title">Boss Encounters</h3>
+                    <p class="feature-desc">Special boss waves at milestone intervals (every 5 waves) with unique mechanics. Bosses could trigger room modifications, sealing exits or spawning environmental hazards specific to that encounter type.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bomb"></i></div>
+                    <h3 class="feature-title">Additional Room Prefabs</h3>
+                    <p class="feature-desc">Expand the room library with more child Blueprints: multi-level rooms, arena spaces, narrow corridors, and rooms with interactive elements like explosive barrels or destructible cover.</p>
+                </div>
+            </div>
+            
+            <p class="content-text" style="margin-top: 2rem;">
+                The wing-based assembly system would leverage the existing modular architecture. After spawning a core cluster of generic room prefabs, the algorithm would select three random exits and transform them into entrances to specialized wings. A Science Wing might feature laboratory equipment BP_LabRoom prefabs, narrow BP_ResearchHall corridors, and BP_ContainmentRoom spaces with hazardous materials. Military Barracks could provide BP_Armory weapon caches, open BP_FiringRange layouts, and BP_Barracks defensive fortifications. Prison Cells would offer BP_CellBlock tight corridors, BP_SecurityRoom locked doors requiring keys, and BP_RiotControl equipment rooms.
+            </p>
+            
+            <p class="content-text">
+                Boss encounters would require new room prefabs specifically designed for arena-style combat. When a boss wave triggers, the system could spawn a BP_BossArena prefab that seals exits, provides appropriate cover, and includes environmental hazards relevant to that boss type. A "Tank" boss arena might include destructible pillars that collapse after taking damage. A "Summoner" boss could spawn in multi-level BP_VerticalArena rooms where players must climb to high ground. These specialized prefabs would integrate into the existing assembly system without modifying core spawning logic.
+            </p>
+            <p class="content-text">
+                Cooperative multiplayer would be a natural next step, as the Dead Ops Arcade inspiration inherently supports team play. The existing room assembly system already creates spaces that could accommodate multiple players. Implementation would require networking the room spawning (ensuring all clients spawn identical layouts using seed synchronization), adding revive mechanics, balancing zombie spawn rates for player count, and creating shared score systems that reward coordination. The modular architecture means these features could be layered onto existing systems.
+            </p>
+            <p class="content-text">
+                The room prefab system's greatest advantage is rapid content expansion. Designers can create BP_ArenaRoom, BP_StorageRoom, BP_ServerRoom, or any other child Blueprint with unique layouts, populate their Exits Lists, and add them to the spawn pool. Each new prefab increases level variety without touching the assembly algorithm. This approach scales better than pure procedural generation, which requires complex validation systems to ensure algorithmically created spaces remain playable. Hand-built prefabs guarantee quality while procedural assembly maintains unpredictability.
+            </p>
+        </section>
+
+        <section class="cta-section">
+            <h2 class="cta-title">Explore More Projects</h2>
+            <p class="content-text">
+                Check out my other work to see different aspects of my game development skills, from horror level design to cooperative puzzle mechanics.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="../projects_page.html" class="btn btn-primary">
+                    <i class="fas fa-folder-open"></i>
+                    View All Projects
+                </a>
+                <a href="../contact_page.html" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i>
+                    Get In Touch
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p class="footer-text">
+            © 2025 Zayne Anderson. Crafted with passion for game development.
+        </p>
+    </footer>
+</body>
+</html>

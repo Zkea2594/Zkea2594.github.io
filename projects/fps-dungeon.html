@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPS Dungeon Crawler | Zayne Anderson</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --card-bg: #222222;
+            --accent-primary: #00ff88;
+            --accent-secondary: #0088ff;
+            --accent-tertiary: #ff0088;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #999999;
+            --border-color: #333333;
+            --gradient-primary: linear-gradient(135deg, #00ff88, #0088ff);
+            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Hero Section */
+        .project-hero {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(0, 136, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .project-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .meta-item i {
+            color: var(--accent-primary);
+        }
+
+        /* Featured Media */
+        .featured-media {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .media-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        .media-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Content Section */
+        .project-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            color: var(--accent-primary);
+        }
+
+        .content-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Team Credits */
+        .team-credits {
+            background: var(--secondary-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .team-credits h3 {
+            color: var(--accent-secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .team-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .team-list li {
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .team-list li:last-child {
+            border-bottom: none;
+        }
+
+        .team-list li strong {
+            color: var(--text-primary);
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .feature-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Process Timeline */
+        .process-timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient-primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            border: 3px solid var(--primary-bg);
+            box-shadow: 0 0 0 3px var(--accent-primary);
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Dungeon Layout */
+        .dungeon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .room-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .room-card:hover {
+            border-color: var(--accent-secondary);
+            transform: translateY(-5px);
+        }
+
+        .room-number {
+            display: inline-block;
+            background: var(--accent-secondary);
+            color: var(--primary-bg);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .room-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        .room-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .tech-badge {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Challenges & Solutions */
+        .challenge-card {
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent-tertiary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .challenge-title {
+            color: var(--accent-tertiary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-title {
+            color: var(--accent-primary);
+            font-size: 1rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            background: var(--secondary-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            margin: 4rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--primary-bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-secondary);
+            border: 2px solid var(--accent-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-secondary);
+            color: var(--primary-bg);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-bg);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .project-meta {
+                gap: 1rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dungeon-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-timeline {
+                padding-left: 1rem;
+            }
+
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+
+            .cta-section {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">Zayne Anderson</a>
+            <a href="../projects_page.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Projects
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="project-hero">
+        <h1 class="project-title">FPS Dungeon Crawler</h1>
+        <p class="project-tagline">One-Week Sprint Prototype with Boss Battle</p>
+        
+        <div class="project-meta">
+            <div class="meta-item">
+                <i class="fas fa-calendar"></i>
+                <span>2024</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-users"></i>
+                <span>6-Person Team</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-gamepad"></i>
+                <span>FPS / Dungeon Crawler</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-clock"></i>
+                <span>1 Week Sprint</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-code"></i>
+                <span>Unreal Engine 5.3</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Media -->
+    <section class="featured-media">
+        <div class="media-container">
+            <iframe src="https://www.youtube.com/embed/EUT4bM4Ipns" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <div class="project-content">
+        <!-- Overview -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                Project Overview
+            </h2>
+            <p class="content-text">
+                FPS Dungeon Crawler was a one-week rapid prototype that marked my first playable project beyond pure level design work. The assignment challenged a six-person team to create a complete gameplay experience from concept to demo in just seven days, forcing aggressive prioritization and rapid iteration.
+            </p>
+            <p class="content-text">
+                The game features a linear five-room dungeon populated with roaming enemies that fire projectiles on detection, environmental trap systems, and a climactic Beholder boss fight. Players wield a fireball weapon with limited ammunition, navigating through increasingly challenging encounters that require strategic resource management and spatial awareness.
+            </p>
+            <p class="content-text">
+                Combat emphasizes precision and resource conservation. Enemies die in one hit, but ammunition pickups are strategically placed to create tension between aggressive playstyles and careful progression. The Beholder boss represents the culmination of these systems, featuring a dramatic pool entrance, rotation-based tracking, and a cornea-only vulnerability that requires four precise hits to defeat.
+            </p>
+            <p class="content-text">
+                The compressed timeline forced functionality over polish. While the game lacks visual refinement, the core systems demonstrate solid understanding of AI behavior, player feedback loops, and paced difficulty progression. This project served as proof that a small team could deliver a complete vertical slice under extreme time pressure.
+            </p>
+        </section>
+
+        <!-- Design Philosophy -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb"></i>
+                Design Philosophy
+            </h2>
+            <p class="content-text">
+                The design philosophy prioritized delivering a complete gameplay arc over feature depth. Rather than building complex systems that might not reach playable state, I focused on creating a coherent experience from start to finish where every mechanic served the core loop of exploration, combat, and resource management.
+            </p>
+            <p class="content-text">
+                Enemy AI follows a hit-and-run pattern that creates predictable but engaging encounters. Enemies wander randomly until detecting the player, fire a telegraphed fireball, then retreat to create breathing room. This design respects player reaction time while maintaining threat pressure, avoiding both bullet-sponge frustration and mindless rushing.
+            </p>
+            <p class="content-text">
+                The Beholder boss battle exemplifies dramatic presentation within technical constraints. The pool entrance creates anticipation and establishes scale, the stationary rotation tracking simplifies AI while creating a challenging targeting scenario, and the cornea-only vulnerability transforms a simple damage system into a precision challenge. Originally planned snapshot-fireball attacks (capturing three player positions and firing simultaneously) were cut due to time, but the foundation supports future expansion.
+            </p>
+            <p class="content-text">
+                Environmental hazards complement rather than replace combat. The kill floor trap in the second room offers multiple solution paths: beam-walk across, jump between pillars, or shoot the disable button. This design philosophy of providing options rather than forcing single solutions respects player agency and encourages experimentation.
+            </p>
+        </section>
+
+        <!-- Team Credits -->
+        <div class="team-credits">
+            <h3>
+                <i class="fas fa-users"></i>
+                Development Team
+            </h3>
+            <ul class="team-list">
+                <li><strong>Zayne Anderson:</strong> Boss Animation & Arrival System, AI Shooting & Wandering Behavior, HUD Implementation, Performance Optimization</li>
+                <li><strong>Gavin Finning:</strong> Ledge Grabbing Mechanic</li>
+                <li><strong>Frank Toney:</strong> AI Functionality, Quality Assurance, Night Shift Optimization Work</li>
+                <li><strong>Alecsander Ridgway:</strong> Level Design & Room Layout</li>
+                <li><strong>William Johnson:</strong> Environmental Trap Systems</li>
+                <li><strong>Benjamin Valley:</strong> Initial Concept Development (Left Project Early)</li>
+            </ul>
+        </div>
+
+        <!-- Key Features -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                Key Features
+            </h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-robot"></i></div>
+                    <h3 class="feature-title">Hit-and-Run AI</h3>
+                    <p class="feature-desc">Enemies wander randomly, detect players, fire telegraphed fireballs, then retreat to create tactical combat encounters</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                    <h3 class="feature-title">Beholder Boss</h3>
+                    <p class="feature-desc">Dramatic pool entrance, rotation-based tracking, cornea-only vulnerability requiring four precise hits</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-fire"></i></div>
+                    <h3 class="feature-title">Fireball Combat</h3>
+                    <p class="feature-desc">Limited ammunition system with one-shot enemy kills and strategic pickup placement for resource management</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-dungeon"></i></div>
+                    <h3 class="feature-title">Five-Room Dungeon</h3>
+                    <p class="feature-desc">Progressive difficulty from tutorial library through trap hallway, arena combat, jumping challenge, and boss lair</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Process -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-tasks"></i>
+                Development Process
+            </h2>
+            
+            <div class="process-timeline">
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Day 1 - Concept and Task Division</h3>
+                    <p class="timeline-desc">
+                        Established the Beholder boss concept as the project's centerpiece and divided responsibilities among team members. Set up version control infrastructure and established daily check-in schedules to maintain coordination under the aggressive timeline. Benjamin Valley contributed initial concept work before departing the project.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Days 2-3 - Core Systems Implementation</h3>
+                    <p class="timeline-desc">
+                        Built the foundational boss animation system and dramatic pool entrance sequence. Implemented enemy AI using Behavior Trees and Blackboards for wander, detection, shooting, and retreat behaviors. Focused on establishing functional systems rather than polished presentation, prioritizing playable mechanics over visual quality.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Days 3-4 - HUD and Player Feedback</h3>
+                    <p class="timeline-desc">
+                        Migrated HUD implementation from Level Blueprint to Player Character Blueprint for proper encapsulation and portability. Gavin completed the ledge grabbing system, enabling vertical traversal in the jump challenge room. Integrated player feedback systems for health, ammunition, and damage indication.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Days 4-5 - Level Population and Trap Systems</h3>
+                    <p class="timeline-desc">
+                        Finalized room layouts and populated environments with enemies and pickups. William completed the kill floor trap system with multiple solution paths. Built the choice room architecture, though planned powerup implementations were cut due to time constraints. Balanced enemy placement and resource distribution across all five rooms.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Days 5-6 - Boss Room and Guard Encounters</h3>
+                    <p class="timeline-desc">
+                        Populated the boss lair with four guard enemies and strategic pickups. Implemented the spawn trigger that activates the Beholder's emergence from the central pool. Built the boss rotation system that tracks player movement and established the cornea vulnerability mechanic requiring precision shots. Tested and balanced the four-hit victory condition.
+                    </p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Days 6-7 - Optimization and Final Polish</h3>
+                    <p class="timeline-desc">
+                        Frank worked night shifts to provide 24-hour development coverage, focusing on performance optimization and bug fixes. Conducted final balancing passes on enemy damage, player health, ammunition counts, and resource placement. Recorded demonstration video showcasing the complete gameplay loop from entry to boss defeat.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dungeon Layout -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-map"></i>
+                Dungeon Room Breakdown
+            </h2>
+            
+            <div class="dungeon-grid">
+                <div class="room-card">
+                    <span class="room-number">Room 1</span>
+                    <h3 class="room-title">Library (Entry)</h3>
+                    <p class="room-desc">
+                        Safe tutorial space with two ammunition pickups and a pressure plate door. Introduces basic controls and fireball mechanics in a non-threatening environment.
+                    </p>
+                </div>
+                
+                <div class="room-card">
+                    <span class="room-number">Room 2</span>
+                    <h3 class="room-title">Trap Hallway</h3>
+                    <p class="room-desc">
+                        Kill floor trap with two roaming enemies. Offers three solution paths: walk the beam, jump between pillars, or shoot the disable button. First strategic decision point.
+                    </p>
+                </div>
+                
+                <div class="room-card">
+                    <span class="room-number">Room 3</span>
+                    <h3 class="room-title">Pillar Arena</h3>
+                    <p class="room-desc">
+                        Four central pillars with two enemies and multiple pickups. Focus on combat fundamentals with health and ammunition rewards for successful engagement.
+                    </p>
+                </div>
+                
+                <div class="room-card">
+                    <span class="room-number">Room 4</span>
+                    <h3 class="room-title">Wall Jump Challenge</h3>
+                    <p class="room-desc">
+                        Central wall requiring drop-down and ledge grab navigation. Two enemies patrol the area with two ammunition and two health pickups as vertical traversal rewards.
+                    </p>
+                </div>
+                
+                <div class="room-card">
+                    <span class="room-number">Room 5</span>
+                    <h3 class="room-title">Choice Room</h3>
+                    <p class="room-desc">
+                        Architectural framework built for three exclusive powerup options. Implementations cut due to timeline but structure remains for future expansion.
+                    </p>
+                </div>
+                
+                <div class="room-card">
+                    <span class="room-number">Room 6</span>
+                    <h3 class="room-title">Boss Lair</h3>
+                    <p class="room-desc">
+                        Four guard enemies with one ammunition and one health pickup. Defeating guards triggers the Beholder's dramatic pool emergence. Cornea shots required for victory, exit unlocks upon defeat.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Implementation -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-cog"></i>
+                Technical Stack
+            </h2>
+            
+            <div class="tech-stack">
+                <div class="tech-badge">
+                    <i class="fab fa-unreal-engine"></i>
+                    Unreal Engine 5.3
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-project-diagram"></i>
+                    Blueprint Visual Scripting
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-brain"></i>
+                    Behavior Trees
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-database"></i>
+                    Blackboard System
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-running"></i>
+                    Animation Blueprints
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-crosshairs"></i>
+                    First-Person Template
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-code-branch"></i>
+                    Version Control
+                </div>
+            </div>
+        </section>
+
+        <!-- Challenges & Solutions -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-puzzle-piece"></i>
+                Challenges & Solutions
+            </h2>
+            
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: Team Communication and Coordination</h3>
+                <p class="content-text">
+                    With six team members and aggressive timeline pressure, communication quickly became chaotic. Work concentrated heavily on Alecsander and myself while other team members struggled to find clear contribution paths. Benjamin departed early, and coordination breakdowns caused redundant work and merge conflicts. The lack of structured communication meant team members were uncertain about project status without being physically present.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    We powered through by emphasizing functionality over feature completeness and establishing daily check-in routines with clear ownership assignments. Frank's night shift work provided crucial 24-hour development coverage with defined handoff protocols. Rather than trying to coordinate perfectly, we accepted concentrated effort on core contributors and focused on delivering playable systems. This pragmatic approach sacrificed ideal team distribution for guaranteed completion.
+                </p>
+            </div>
+            
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: HUD Architecture and Blueprint Ownership</h3>
+                <p class="content-text">
+                    The initial HUD implementation lived in the Level Blueprint, creating tight coupling between UI systems and level-specific logic. When health or ammunition updates failed to trigger properly, debugging revealed the architectural flaw: player state management belonged to the player character, not the level. This mistake created dependency chains that made the system brittle and non-portable.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    Refactored the entire HUD system into the Player Character Blueprint where it properly belonged. This encapsulation meant player-related UI updates occurred within the player's own logic, eliminating cross-Blueprint communication failures. The refactored architecture became portable across levels and significantly easier to debug. This experience taught the importance of proper Blueprint ownership: player systems live in player classes, level logic lives in level Blueprints.
+                </p>
+            </div>
+            
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: Boss Polish versus Time Constraints</h3>
+                <p class="content-text">
+                    The Beholder boss design included ambitious snapshot-fireball attacks that would capture three player positions and fire projectiles simultaneously at those locations. While the pool entrance animation and rotation tracking systems worked properly, implementing the snapshot mechanic proved too time-intensive for the remaining development window. The pressure to deliver a working demo forced difficult priority decisions.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    Prioritized functional mechanics over ambitious features. Polished the core rotation system and cornea vulnerability to ensure they worked reliably, then used the dramatic pool entrance to compensate for simpler attack patterns. This taught an important lesson about scope management: establish solid foundations before attempting complex systems. The working but simple boss fight demonstrated competence better than a broken ambitious one would have. In subsequent projects, this experience improved my ability to recognize when to simplify features rather than sacrifice stability.
+                </p>
+            </div>
+        </section>
+
+        <!-- Key Learnings -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap"></i>
+                Key Learnings
+            </h2>
+            <p class="content-text">
+                This project marked the transition from level design work to playable prototype development, exposing workflow gaps that only appear when building complete gameplay systems. The pressure of a one-week timeline revealed the difference between understanding concepts theoretically and implementing them under production constraints. I learned to distinguish between perfection and functionality, recognizing when good enough truly is good enough.
+            </p>
+            <p class="content-text">
+                The visual polish trap became apparent early. I initially spent too much time on asset placement and lighting before establishing core gameplay loops, forcing rushed implementation of critical systems later. This taught me to prioritize functional completeness before aesthetic refinement. Subsequent projects now follow a strict progression: functional systems first, then balance and feel, finally visual polish. This ordering ensures playable experiences even when time runs short.
+            </p>
+            <p class="content-text">
+                The HUD refactor crystallized understanding of Blueprint ownership and encapsulation. Player-related systems belong in player classes, level-specific logic belongs in level Blueprints, and shared functionality belongs in function libraries or interfaces. Violating these boundaries creates fragile architectures that break under modification. This lesson now influences every Blueprint I create, questioning whether each piece of logic lives in the correct owner.
+            </p>
+            <p class="content-text">
+                Behavior Trees and Blackboards proved remarkably powerful for creating believable AI within tight timelines. The modular nature of behavior nodes meant I could build complex behaviors by composing simple pieces rather than writing monolithic AI logic. The hit-and-run pattern emerged naturally from connecting wander, detection, attack, and retreat behaviors. This experience demonstrated that well-designed tools enable rapid iteration even for traditionally complex systems like AI.
+            </p>
+            <p class="content-text">
+                Frank's night shift work highlighted that extreme time pressure requires infrastructure, not just goodwill. His 24-hour development coverage worked because we established clear handoff protocols and ownership boundaries. Without structured communication, even heroic effort degrades into confusion. This lesson about team infrastructure applies beyond game development to any high-pressure collaborative work: define clear responsibilities, establish handoff rituals, and document decisions explicitly.
+            </p>
+            <p class="content-text">
+                The boss design evolution revealed my growth trajectory. The Beholder worked functionally but lacked the depth and polish of later projects. Comparing this early boss to subsequent enemy designs shows clear improvement in anticipating player behavior, creating readable attack patterns, and balancing challenge with fairness. Recognizing this progression validates the importance of completing projects rather than endlessly refining single systems.
+            </p>
+            <p class="content-text">
+                Most importantly, this project demonstrated that functionality shipped beats features planned. A complete playable experience with simplified mechanics taught me more than a feature-rich but broken prototype would have. The discipline of cutting ambitious systems like snapshot-fireball attacks to ensure core stability served the project better than stubborn feature commitment. This pragmatic mindset now guides all scoping decisions: ship working systems, iterate based on feedback, expand complexity only after establishing solid foundations.
+            </p>
+        </section>
+
+        <!-- Future Development -->
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-forward"></i>
+                Future Development Possibilities
+            </h2>
+            <p class="content-text">
+                The immediate expansion would implement the originally planned snapshot-fireball system for the Beholder boss. This mechanic captures three sequential player positions over a brief window, then fires projectiles simultaneously at those locations, forcing players to constantly reposition rather than circle-strafe. Tying this to health-based phases would create escalating challenge: first phase fires one snapshot per attack cycle, second phase fires two, final phase fires three overlapping patterns.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chess"></i></div>
+                    <h3 class="feature-title">Advanced AI Tactics</h3>
+                    <p class="feature-desc">Flanking behaviors, cover usage, and coordinated enemy attacks that force strategic movement rather than predictable circle-strafing</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-puzzle-piece"></i></div>
+                    <h3 class="feature-title">Complex Puzzle Design</h3>
+                    <p class="feature-desc">Multi-stage environmental puzzles requiring resource management decisions and backtracking mechanics</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3 class="feature-title">Choice Room Powerups</h3>
+                    <p class="feature-desc">Three exclusive buffs offering build variety: rapid-fire projectiles, charged power shots, or temporary damage barrier</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-dragon"></i></div>
+                    <h3 class="feature-title">Complete Boss Patterns</h3>
+                    <p class="feature-desc">Health-based phases with distinct attack patterns including snapshot-fireball, sweeping beams, and summoned minions</p>
+                </div>
+            </div>
+            
+            <p class="content-text" style="margin-top: 2rem;">
+                Enemy AI improvements would add tactical depth through flanking behaviors, cover usage, and coordinated attacks. Rather than each enemy acting independently, groups would communicate through the Blackboard system to surround players or create crossfire situations. Advanced enemies could suppress player positions with sustained fire while others reposition, forcing dynamic movement rather than static cover shooting.
+            </p>
+            
+            <p class="content-text">
+                The choice room framework already exists but lacks the three planned powerups: Rapid Fire (increased projectile speed and fire rate), Charged Shot (hold to charge devastating high-damage projectiles), and Protective Barrier (temporary damage absorption shield). These mutually exclusive buffs would create build variety and replayability, encouraging players to experiment with different playstyles across multiple runs.
+            </p>
+            
+            <p class="content-text">
+                Environmental interaction systems would expand beyond simple traps to include destructible walls revealing shortcuts, elemental hazards that combine with player abilities, and moveable cover that enables dynamic positioning. The dungeon could feature branching paths with optional challenge rooms offering better rewards for higher difficulty, creating risk-reward decisions about exploration versus direct progression.
+            </p>
+            
+            <p class="content-text">
+                A scoring system and difficulty modifiers would add significant replayability. Time-based scoring encourages aggressive play, while modifiers like limited ammunition or increased enemy spawns create challenge variations. Leaderboards comparing clear times and perfect-run achievements would motivate repeated playthroughs. These systems transform a linear single-experience dungeon into a replayable arcade-style challenge.
+            </p>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <h2 class="cta-title">Explore More Projects</h2>
+            <p class="content-text">
+                Check out my other work to see different aspects of my game development skills, from horror level design to puzzle mechanics and collaborative team projects.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="../projects_page.html" class="btn btn-primary">
+                    <i class="fas fa-folder-open"></i>
+                    View All Projects
+                </a>
+                <a href="../contact_page.html" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i>
+                    Get In Touch
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">
+            © 2025 Zayne Anderson. Crafted with passion for game development.
+        </p>
+    </footer>
+</body>
+</html>
