@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infecticide | Zayne Anderson</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --card-bg: #222222;
+            --accent-primary: #00ff88;
+            --accent-secondary: #0088ff;
+            --accent-tertiary: #ff0088;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #999999;
+            --border-color: #333333;
+            --gradient-primary: linear-gradient(135deg, #00ff88, #0088ff);
+            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-primary);
+        }
+
+        .project-hero {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 136, 255, 0.1));
+            border-bottom: 1px solid var(--border-color);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .project-title {
+            font-size: 3rem;
+            font-weight: bold;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .project-tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-item i {
+            color: var(--accent-primary);
+        }
+
+        .featured-media {
+            background: var(--secondary-bg);
+            padding: 3rem 2rem;
+        }
+
+        .media-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding-bottom: 50.625%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-card);
+        }
+
+        .media-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .media-grid {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .media-secondary {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-card);
+        }
+
+        .media-secondary iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .media-label {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+        }
+
+        .itch-banner {
+            max-width: 900px;
+            margin: 2rem auto 0;
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 12px;
+            padding: 1.25rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .itch-banner-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .itch-banner-text strong {
+            color: var(--accent-primary);
+        }
+
+        .btn-itch {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-primary);
+            color: #000;
+            padding: 0.6rem 1.4rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-itch:hover {
+            background: #00cc6e;
+            transform: translateY(-2px);
+        }
+
+        .project-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .content-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--secondary-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .content-text {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-primary);
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .team-credits {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .team-credits h3 {
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .team-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .team-list li {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--accent-primary);
+        }
+
+        .process-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .timeline-item {
+            padding-left: 2rem;
+            border-left: 3px solid var(--accent-primary);
+        }
+
+        .timeline-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .system-breakdown {
+            background: var(--secondary-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .system-item {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--accent-secondary);
+        }
+
+        .system-item-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--accent-secondary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .system-item-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .challenge-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 0, 136, 0.3);
+            border-left: 3px solid var(--accent-tertiary);
+        }
+
+        .challenge-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--accent-tertiary);
+            margin-bottom: 0.75rem;
+        }
+
+        .solution-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            margin: 1rem 0 0.5rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .tech-badge {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 0.4rem 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .card-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .card-flow-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .card-flow-item .wave-label {
+            font-size: 0.8rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-flow-item .wave-type {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .card-flow-item .wave-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .card-flow-item.milestone {
+            border-color: rgba(0, 136, 255, 0.5);
+            background: rgba(0, 136, 255, 0.05);
+        }
+
+        .card-flow-item.milestone .wave-label {
+            color: var(--accent-secondary);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 136, 255, 0.1));
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: var(--secondary-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2rem;
+            }
+
+            .project-meta {
+                gap: 1rem;
+            }
+
+            .media-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-section {
+                padding: 1.5rem;
+            }
+
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+
+            .cta-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .system-breakdown {
+                padding: 1.5rem;
+            }
+
+            .itch-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">Zayne Anderson</a>
+            <a href="../projects_page.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Projects
+            </a>
+        </div>
+    </nav>
+
+    <section class="project-hero">
+        <h1 class="project-title">Infecticide</h1>
+        <p class="project-tagline">Card-Based Arena Survival: Survive the Infection, Evolve with Every Wave</p>
+
+        <div class="project-meta">
+            <div class="meta-item">
+                <i class="fas fa-calendar"></i>
+                <span>2025</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-users"></i>
+                <span>3-Person Team</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-gamepad"></i>
+                <span>Arena Survival</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-clock"></i>
+                <span>7-Day Game Jam</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-code"></i>
+                <span>Unreal Engine 5.6</span>
+            </div>
+            <div class="meta-item">
+                <i class="fas fa-external-link-alt"></i>
+                <span>Released on itch.io</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-media">
+        <div class="media-container">
+            <iframe src="https://www.youtube.com/embed/aM_uguWd9jU" allowfullscreen></iframe>
+        </div>
+
+        <!-- Card System Breakdown Video: add YouTube embed URL when available -->
+        <!--
+        <div class="media-grid">
+            <div>
+                <div class="media-secondary">
+                    <iframe src="https://www.youtube.com/embed/CARD_SYSTEM_VIDEO_ID" allowfullscreen></iframe>
+                </div>
+                <p class="media-label">Card System Deep Dive</p>
+            </div>
+        </div>
+        -->
+
+        <div class="itch-banner">
+            <div class="itch-banner-text">
+                <strong>Play Infecticide free on itch.io</strong> by AVISWAZ
+            </div>
+            <a href="https://aviswaz.itch.io/infecticide" target="_blank" class="btn-itch">
+                <i class="fas fa-gamepad"></i>
+                Play on itch.io
+            </a>
+        </div>
+    </section>
+
+    <div class="project-content">
+
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                Project Overview
+            </h2>
+            <p class="content-text">
+                Infecticide is a medical-themed arena survival game developed in 7 days as a game jam project by team AVISWAZ. You play as a white blood cell fighting off a viral infection, surviving escalating waves of enemies while growing stronger through a card-based upgrade system. The game was built in Unreal Engine 5.6 using Blueprint visual scripting and released on itch.io as a free prototype.
+            </p>
+            <p class="content-text">
+                As lead developer, my primary responsibilities were the progression and upgrade system and the wave spawning architecture. The upgrade system drives the core gameplay loop: every wave presents three upgrade cards to choose from, with stat-boosting cards appearing between milestones and a powerful new ability unlocking every five waves. This card cadence creates a rhythm of incremental growth punctuated by meaningful ability decisions.
+            </p>
+            <p class="content-text">
+                Given the 7-day constraint, the team prioritized shipping functional, well-structured systems over visual polish. The game reflects that priority: the card upgrade system and wave architecture are clean and extensible, while environmental art and character animations remained minimal. The project demonstrates systematic design under tight time pressure rather than production-level finish.
+            </p>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-lightbulb"></i>
+                Design Philosophy
+            </h2>
+            <p class="content-text">
+                The central design goal was creating meaningful moment-to-moment decision-making through a card upgrade system. Rather than passive stat scaling, each wave completion presents a choice that shapes how your playthrough evolves. This keeps players engaged beyond pure survival instinct. You're constantly evaluating which cards compound best and planning toward the next ability unlock milestone.
+            </p>
+            <p class="content-text">
+                The every-5-waves ability unlock cadence was a deliberate structural decision. Stat upgrades between milestones provide consistent incremental power, while ability unlocks at waves 5, 10, 15, and beyond give players clear short-term goals to push toward. This two-tier progression rhythm keeps the system interesting whether you survive 3 waves or 15.
+            </p>
+            <p class="content-text">
+                The medical theme directly informed the gameplay framing. Playing as an antibody fighting a viral infection grounds the arena survival genre in a setting that makes mechanical sense: waves of enemies are literal infection waves, and upgrades represent the immune response growing stronger. This thematic coherence was achievable within the jam timeline and gives the game a clear identity despite its prototype scope.
+            </p>
+        </section>
+
+        <div class="team-credits">
+            <h3>
+                <i class="fas fa-users"></i>
+                Development Team: AVISWAZ
+            </h3>
+            <ul class="team-list">
+                <li><strong>Zayne Anderson (Lead):</strong> Card Upgrade System, Wave Spawning Architecture, Blueprint Systems Lead</li>
+                <li><strong>Laura Kozel:</strong> Level Design</li>
+                <li><strong>Paul Nosakowski:</strong> Gameplay Design</li>
+            </ul>
+        </div>
+
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                Key Features
+            </h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-id-card"></i></div>
+                    <h3 class="feature-title">Card-Based Upgrade System</h3>
+                    <p class="feature-desc">Every wave presents 3 upgrade cards to choose from. Stat upgrades between milestones keep power growth consistent while ability unlocks at every 5th wave deliver high-impact decisions.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3 class="feature-title">Ability Unlock Milestones</h3>
+                    <p class="feature-desc">Reaching wave 5, 10, 15, and beyond unlocks new abilities rather than stat bonuses, giving players clear goals to pursue and rewarding persistence with build-defining powers.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-layer-group"></i></div>
+                    <h3 class="feature-title">Escalating Wave System</h3>
+                    <p class="feature-desc">Wave groups with enemy count thresholds, timer-based spawning, and difficulty scaling that increases over time. Each wave must be fully cleared before the next begins.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-virus"></i></div>
+                    <h3 class="feature-title">Medical Theme</h3>
+                    <p class="feature-desc">Play as a white blood cell defending the body from viral infection. The arena survival genre is grounded in a coherent biological setting that gives the gameplay clear thematic identity.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-tasks"></i>
+                Development Process
+            </h2>
+
+            <div class="process-timeline">
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Days 1–2: Concept and System Architecture</h3>
+                    <p class="timeline-desc">
+                        Established the medical theme and core concept: antibody vs. viral infection in an arena survival format. Defined the card upgrade system structure early: 3 cards per wave, stat upgrades in the interim waves, ability unlocks at every 5th wave. Architected the Data Table structure for card definitions and the Blueprint systems needed to drive selection, application, and persistence of upgrades across waves. Divided responsibilities across the three-person team and set up Unreal Engine 5.6 project with Blueprints as the scripting layer.
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Days 2–4: Card System and Wave Architecture Implementation</h3>
+                    <p class="timeline-desc">
+                        Built the core card upgrade system using Blueprint data structures, structs, and Data Tables to define and store card definitions. Implemented the card selection UI using Unreal's Widget system, presenting 3 randomly selected cards at wave completion and applying the selected upgrade to the player via event dispatchers. Built the wave spawning architecture with timer-based spawning, enemy count thresholds, wave group definitions, and difficulty scaling logic. The wave completion trigger feeds directly into the card system, creating a clean loop between combat and progression.
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Days 4–5: Milestone Ability System and Integration</h3>
+                    <p class="timeline-desc">
+                        Implemented the milestone ability unlock logic that detects every 5th wave and routes the card selection to present ability cards rather than stat cards. Integrated the milestone check into the wave counter and connected it to the card generation system via event dispatchers, ensuring the correct card pool was used at each wave type. Tested the full loop from wave completion through card presentation to stat or ability application on the player character.
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3 class="timeline-title">Days 5–7: Integration, Polish Attempt, and Shipping</h3>
+                    <p class="timeline-desc">
+                        Integrated all team systems and resolved Blueprint reference conflicts. Time pressure in the final days meant visual polish was deprioritized in favor of ensuring core systems were stable and functional. Enemy and player animations were not implemented within the jam window. Shipped the project to itch.io as a functional prototype with clean upgrade and wave systems, acknowledging the prototype scope in the release description. The game was released free under the AVISWAZ team name.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="system-breakdown">
+            <h2 class="section-title">
+                <i class="fas fa-cogs"></i>
+                Card Upgrade System Breakdown
+            </h2>
+
+            <p class="content-text" style="margin-bottom: 1.5rem;">
+                The card upgrade system is the centerpiece of Infecticide's design. Every wave presents 3 cards, with the card pool determined by whether the current wave is a milestone (every 5 waves) or a standard wave between milestones.
+            </p>
+
+            <div class="card-flow">
+                <div class="card-flow-item">
+                    <div class="wave-label">Waves 1–4, 6–9...</div>
+                    <div class="wave-type">Stat Upgrade Cards</div>
+                    <div class="wave-desc">3 random stat cards covering damage, speed, health, and other base attributes</div>
+                </div>
+                <div class="card-flow-item milestone">
+                    <div class="wave-label">Wave 5, 10, 15...</div>
+                    <div class="wave-type">Ability Unlock Cards</div>
+                    <div class="wave-desc">3 ability cards presented to unlock a new active or passive ability</div>
+                </div>
+            </div>
+
+            <div class="system-item">
+                <h3 class="system-item-title">
+                    <i class="fas fa-table"></i>
+                    Data Table Card Definitions
+                </h3>
+                <p class="system-item-desc">
+                    All upgrade cards are defined in a Data Table, with each row representing a card entry containing its name, description, card type (stat or ability), and the stat or ability it applies. Using a Data Table makes adding new cards straightforward. A new row in the table is all that's needed with no Blueprint logic changes required. This separation of data from logic keeps the system extensible and easy to balance.
+                </p>
+            </div>
+
+            <div class="system-item">
+                <h3 class="system-item-title">
+                    <i class="fas fa-random"></i>
+                    Card Pool Selection and Presentation
+                </h3>
+                <p class="system-item-desc">
+                    When a wave ends, the system checks the current wave number to determine which card pool to draw from, using stat cards for standard waves and ability cards for milestone waves. Three cards are randomly selected from the appropriate pool using Blueprint array operations and displayed through the card selection Widget UI. The player's choice triggers the upgrade application logic and dismisses the UI to resume combat.
+                </p>
+            </div>
+
+            <div class="system-item">
+                <h3 class="system-item-title">
+                    <i class="fas fa-broadcast-tower"></i>
+                    Event Dispatchers for Upgrade Application
+                </h3>
+                <p class="system-item-desc">
+                    Event dispatchers decouple the card UI from the player character. When a card is selected, the UI broadcasts the chosen upgrade through a dispatcher rather than directly calling player functions. The player Blueprint is bound to this dispatcher and applies the appropriate stat change or ability grant when it fires. This loose coupling keeps the card system independent of player implementation details and makes the upgrade pipeline easy to extend.
+                </p>
+            </div>
+
+            <div class="system-item">
+                <h3 class="system-item-title">
+                    <i class="fas fa-layer-group"></i>
+                    Wave Group and Spawning Architecture
+                </h3>
+                <p class="system-item-desc">
+                    Waves are organized into wave groups defined by enemy count thresholds and spawn timing. Timer-based spawning releases enemies at intervals, with enemy count thresholds preventing the next wave from triggering until the current one is fully cleared. Difficulty scaling increases enemy count and spawn rate as wave numbers rise. Wave completion is detected when the active enemy count reaches zero, which triggers the card system and begins the next wave group after card selection is complete.
+                </p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-cog"></i>
+                Technical Stack
+            </h2>
+
+            <div class="tech-stack">
+                <div class="tech-badge">
+                    <i class="fas fa-engine"></i>
+                    Unreal Engine 5.6
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-project-diagram"></i>
+                    Blueprint Visual Scripting
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-table"></i>
+                    Data Tables
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-cubes"></i>
+                    Blueprint Structs
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-broadcast-tower"></i>
+                    Event Dispatchers
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-desktop"></i>
+                    UMG Widget System
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-clock"></i>
+                    Timer-Based Spawning
+                </div>
+                <div class="tech-badge">
+                    <i class="fas fa-users"></i>
+                    3-Person Team
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-puzzle-piece"></i>
+                Challenges and Solutions
+            </h2>
+
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: Shipping a Clean System in 7 Days</h3>
+                <p class="content-text">
+                    A 7-day jam forces ruthless prioritization. Early on it was clear that visual polish, animations, and environmental art would compete directly with the time needed to build robust, well-structured systems. The risk was spending time on surface-level presentation at the expense of the card and wave systems that define the game's identity.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    Made a deliberate decision to deprioritize animations and environmental art in favor of clean, extensible system architecture. The card Data Table structure, event dispatcher pipeline, and wave group architecture were all built with future expansion in mind. New cards, new abilities, and new wave configurations can all be added without touching core logic. This tradeoff produced a mechanically solid prototype that clearly demonstrates the systems design work even at a prototype visual level.
+                </p>
+            </div>
+
+            <div class="challenge-card">
+                <h3 class="challenge-title">Challenge: Milestone Detection in the Card System</h3>
+                <p class="content-text">
+                    Routing every 5th wave to an ability card pool rather than the standard stat pool required clean integration between the wave counter and the card generation system without coupling them directly. Early implementation attempts created fragile dependencies between the wave manager and card selection logic.
+                </p>
+                <h4 class="solution-title">Solution:</h4>
+                <p class="content-text">
+                    Used a modulo check on the wave counter (wave % 5 == 0) to determine card pool selection, keeping the milestone logic isolated to a single conditional. The card system receives only a flag indicating which pool to draw from, remaining unaware of wave management internals. This separation of concerns kept both systems independently testable and made the ability unlock cadence easy to adjust without modifying either system's core logic.
+                </p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap"></i>
+                Key Learnings
+            </h2>
+            <p class="content-text">
+                The most valuable lesson from Infecticide was learning how to scope under genuine time pressure. A 7-day jam doesn't allow perfectionism. It demands a clear hierarchy of what matters most. The card upgrade system and wave architecture were the game's identity, and protecting development time for those systems over surface-level polish was the right call. The prototype shipped with clean, explainable systems, which matters more for a portfolio than polished visuals over fragile implementation.
+            </p>
+            <p class="content-text">
+                Using Data Tables for card definitions proved its value immediately. Because card data lived in a table rather than hardcoded Blueprint logic, balancing and adding cards during development required no Blueprint changes, just table edits. This data-driven approach is a pattern worth carrying into every future project where content needs to be authored separately from logic.
+            </p>
+            <p class="content-text">
+                Event dispatchers kept the card UI and player character cleanly decoupled throughout development. When player implementation details changed, the card system required no updates. When the card UI changed, the player was unaffected. Designing systems with loose coupling from the start, even on a jam timeline, pays back in reduced debugging time and easier integration across team members working in parallel.
+            </p>
+            <p class="content-text">
+                Shipping a public release on itch.io, even as a prototype, added a real deadline with real stakes. Writing a release description, setting the donation model, and publishing under a team name made the project feel meaningfully different from a class submission. That context of building something for an audience rather than a grade is worth replicating even when the scope is small.
+            </p>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-forward"></i>
+                Future Development Possibilities
+            </h2>
+            <p class="content-text">
+                Infecticide shipped as a prototype with a deliberately extensible foundation. The Data Table card architecture and event dispatcher pipeline make expanding the upgrade system straightforward. New cards, new ability types, and rebalanced stat scaling could all be added without touching core system logic.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-id-card-alt"></i></div>
+                    <h3 class="feature-title">Expanded Card Library</h3>
+                    <p class="feature-desc">Add new stat cards and ability unlocks via Data Table entries. More cards increase build variety and replayability without any Blueprint logic changes.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-virus-slash"></i></div>
+                    <h3 class="feature-title">Enemy Variety</h3>
+                    <p class="feature-desc">Introduce multiple viral enemy types with distinct behaviors like fast but fragile rushers, slow but tanky brutes, and ranged attackers to demand different upgrade strategies per run.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-paint-brush"></i></div>
+                    <h3 class="feature-title">Visual and Animation Polish</h3>
+                    <p class="feature-desc">The highest priority improvement would be adding player and enemy animations, particle effects for abilities, and environmental art to bring the medical theme to life.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-skull-crossbones"></i></div>
+                    <h3 class="feature-title">Boss Wave Encounters</h3>
+                    <p class="feature-desc">Replace or augment the wave 5 milestone with a boss encounter alongside the ability unlock, creating a dual reward of new ability plus a climactic combat challenge.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2 class="cta-title">Play Infecticide or Explore More</h2>
+            <p class="content-text">
+                Infecticide is free to play on itch.io. Check out my other projects to see different aspects of my game development work.
+            </p>
+
+            <div class="cta-buttons">
+                <a href="https://aviswaz.itch.io/infecticide" target="_blank" class="btn btn-primary">
+                    <i class="fas fa-gamepad"></i>
+                    Play on itch.io
+                </a>
+                <a href="../projects_page.html" class="btn btn-secondary">
+                    <i class="fas fa-folder-open"></i>
+                    View All Projects
+                </a>
+                <a href="../contact_page.html" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i>
+                    Get In Touch
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer">
+        <p class="footer-text">
+            &copy; 2025 Zayne Anderson. Crafted with passion for game development.
+        </p>
+    </footer>
+</body>
+</html>
