@@ -1,6 +1,29 @@
 {
   "posts": [
     {
+      "id": 1743638400000,
+      "title": "A New Chapter: Graduated, Shipped, and Just Getting Started",
+      "excerpt": "Last week I graduated. That same day I shipped ReCalibrate. Two days later I shipped Infecticide. I am no longer a student. I am a developer. Here is where I am, what I am working on, and where I am headed.",
+      "content": "I want to be upfront about what this blog is. Every Friday I am going to sit down and write an honest update about where I am at. What I am building. Where I am professionally. How I am feeling. And where you can find me in action. No fluff, no performance. Just me keeping you in the loop.\n\nSo let's start with the big one.\n\n**I Graduated**\n\nOn March 27th, 2026 I walked away from my student chapter for good. It has been a long road and I am not going to pretend otherwise. But I did it, and more importantly I did not just graduate and coast. That same day I shipped ReCalibrate on itch.io. Two days later, on March 29th, I shipped Infecticide with my team AVISWAZ. I closed out my academic career with two game releases in the same week. That was intentional. I wanted to step into this next chapter with momentum, not just a diploma.\n\n**Restructuring My Image**\n\nFor the past few years I have been showing up as a student. That framing shapes how people see you and honestly how you see yourself. I am done with it. I am a game developer. I build systems, I ship products, and I take ownership of the technical work I produce. That is the version of myself I am putting forward from here on out.\n\nThat means a stronger public presence. It means taking the portfolio seriously as a living document, not just a class assignment. It means being visible on YouTube breaking down the systems I build, so that anyone who wants to understand how I think can watch me explain it in my own words. The breakdown videos for Infecticide are already up, covering the card upgrade system and the wave spawning architecture. That is the standard I am holding myself to going forward.\n\n**What I Am Actively Working On**\n\nRight now I am deep in building out the remaining case studies for my portfolio. ReCalibrate and the Rhythm Minigame Mechanic still need full case study pages. Those are next. I am also continuing to grow the portfolio with the goal of reaching out to a Senior Tech Designer at EA. That outreach is not something I am treating casually. I want the portfolio to be sharp, the case studies to be thorough, and the work to speak clearly before I make that move.\n\nEach case study is built around the systems I actually owned and built, not just the projects I was part of. I care about being able to walk someone through exactly how something works, not just say I contributed to it.\n\n**Where to Find Me**\n\nYou can play Infecticide free at aviswaz.itch.io/infecticide. The card system and wave system breakdown videos are live on YouTube if you want to see how the game was built from the inside. ReCalibrate is also available on itch.io. Links are on the projects page.\n\nI will be back here next Friday with another update. Things are moving and I am not slowing down.",
+      "category": "personal",
+      "date": "2026-04-01",
+      "readTime": "4",
+      "tags": [
+        "Graduation",
+        "Game Dev",
+        "Infecticide",
+        "ReCalibrate",
+        "Career",
+        "Weekly Update",
+        "AVISWAZ"
+      ],
+      "featured": true,
+      "timestamp": "2026-04-01T12:00:00.000Z",
+      "slug": "a-new-chapter-graduated-shipped-and-just-getting-started",
+      "dateString": "April 1, 2026",
+      "monthYear": "2026-04"
+    },
+    {
       "id": 1692180000000,
       "title": "Why I'm Adding a Blog to My Game Development Portfolio",
       "excerpt": "Portfolio management isn't just about showcasing finished projects. It's about sharing the journey, insights, and growth that happens behind the scenes. Here's why I've decided to add regular blogging to my game development portfolio and what you can expect to find here.",
@@ -8,8 +31,15 @@
       "category": "industry",
       "date": "2025-08-16",
       "readTime": "8",
-      "tags": [ "Portfolio Management", "Game Development", "Professional Growth", "Industry Insights", "Personal Branding", "Career Development" ],
-      "featured": true,
+      "tags": [
+        "Portfolio Management",
+        "Game Development",
+        "Professional Growth",
+        "Industry Insights",
+        "Personal Branding",
+        "Career Development"
+      ],
+      "featured": false,
       "timestamp": "2025-08-16T20:00:00.000Z",
       "slug": "why-im-adding-a-blog-to-my-game-development-portfolio",
       "dateString": "August 16, 2025",
