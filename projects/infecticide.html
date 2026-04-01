@@ -625,17 +625,20 @@
             <iframe src="https://www.youtube.com/embed/aM_uguWd9jU" allowfullscreen></iframe>
         </div>
 
-        <!-- Card System Breakdown Video: add YouTube embed URL when available -->
-        <!--
         <div class="media-grid">
             <div>
                 <div class="media-secondary">
-                    <iframe src="https://www.youtube.com/embed/CARD_SYSTEM_VIDEO_ID" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/hgvukXRnt6s?start=7" allowfullscreen></iframe>
                 </div>
-                <p class="media-label">Card System Deep Dive</p>
+                <p class="media-label">System Breakdown: Card Upgrade System</p>
+            </div>
+            <div>
+                <div class="media-secondary">
+                    <iframe src="https://www.youtube.com/embed/sYzSiNK8xso" allowfullscreen></iframe>
+                </div>
+                <p class="media-label">System Breakdown: Wave Spawning System</p>
             </div>
         </div>
-        -->
 
         <div class="itch-banner">
             <div class="itch-banner-text">
@@ -659,7 +662,7 @@
                 Infecticide is a medical-themed arena survival game developed in 7 days as a game jam project by team AVISWAZ. You play as a white blood cell fighting off a viral infection, surviving escalating waves of enemies while growing stronger through a card-based upgrade system. The game was built in Unreal Engine 5.6 using Blueprint visual scripting and released on itch.io as a free prototype.
             </p>
             <p class="content-text">
-                As lead developer, my primary responsibilities were the progression and upgrade system and the wave spawning architecture. The upgrade system drives the core gameplay loop: every wave presents three upgrade cards to choose from, with stat-boosting cards appearing between milestones and a powerful new ability unlocking every five waves. This card cadence creates a rhythm of incremental growth punctuated by meaningful ability decisions.
+                As lead developer, my primary responsibilities were the progression and upgrade system and the wave spawning architecture. The upgrade system drives the core gameplay loop: every wave presents three upgrade cards to choose from, with stat-boosting upgrade cards appearing between ability waves and new abilities granted on waves 1 and 6. Wave 10 brings victory. This card cadence creates a rhythm of incremental growth punctuated by two well-placed ability unlocks.
             </p>
             <p class="content-text">
                 Given the 7-day constraint, the team prioritized shipping functional, well-structured systems over visual polish. The game reflects that priority: the card upgrade system and wave architecture are clean and extensible, while environmental art and character animations remained minimal. The project demonstrates systematic design under tight time pressure rather than production-level finish.
@@ -672,10 +675,10 @@
                 Design Philosophy
             </h2>
             <p class="content-text">
-                The central design goal was creating meaningful moment-to-moment decision-making through a card upgrade system. Rather than passive stat scaling, each wave completion presents a choice that shapes how your playthrough evolves. This keeps players engaged beyond pure survival instinct. You're constantly evaluating which cards compound best and planning toward the next ability unlock milestone.
+                The central design goal was creating meaningful moment-to-moment decision-making through a card upgrade system. Rather than passive stat scaling, each wave completion presents a choice that shapes how your playthrough evolves. This keeps players engaged beyond pure survival instinct. You're constantly evaluating which cards compound best and building toward the wave 10 victory condition.
             </p>
             <p class="content-text">
-                The every-5-waves ability unlock cadence was a deliberate structural decision. Stat upgrades between milestones provide consistent incremental power, while ability unlocks at waves 5, 10, 15, and beyond give players clear short-term goals to push toward. This two-tier progression rhythm keeps the system interesting whether you survive 3 waves or 15.
+                The ability unlock placement on waves 1 and 6 was a deliberate structural decision. Starting with an ability on wave 1 gives players an immediate high-impact choice that defines their opening strategy. The second ability on wave 6 arrives mid-run when the player has context to make a more informed decision. Stat upgrade cards in waves 2 through 5 and 7 through 9 provide consistent incremental power between those moments, and wave 10 delivers a clear victory condition rather than infinite scaling.
             </p>
             <p class="content-text">
                 The medical theme directly informed the gameplay framing. Playing as an antibody fighting a viral infection grounds the arena survival genre in a setting that makes mechanical sense: waves of enemies are literal infection waves, and upgrades represent the immune response growing stronger. This thematic coherence was achievable within the jam timeline and gives the game a clear identity despite its prototype scope.
@@ -704,13 +707,13 @@
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-id-card"></i></div>
                     <h3 class="feature-title">Card-Based Upgrade System</h3>
-                    <p class="feature-desc">Every wave presents 3 upgrade cards to choose from. Stat upgrades between milestones keep power growth consistent while ability unlocks at every 5th wave deliver high-impact decisions.</p>
+                    <p class="feature-desc">Every wave presents 3 upgrade cards to choose from. Ability unlocks on waves 1 and 6 deliver high-impact decisions while stat upgrade cards in waves 2 through 5 and 7 through 9 build consistent incremental power toward the wave 10 victory.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-bolt"></i></div>
                     <h3 class="feature-title">Ability Unlock Milestones</h3>
-                    <p class="feature-desc">Reaching wave 5, 10, 15, and beyond unlocks new abilities rather than stat bonuses, giving players clear goals to pursue and rewarding persistence with build-defining powers.</p>
+                    <p class="feature-desc">Abilities unlock on wave 1 and wave 6, giving players two build-defining decisions across the run. Wave 10 is the victory condition, giving the game a clear endpoint rather than an infinite survival loop.</p>
                 </div>
 
                 <div class="feature-card">
@@ -737,7 +740,7 @@
                 <div class="timeline-item">
                     <h3 class="timeline-title">Days 1–2: Concept and System Architecture</h3>
                     <p class="timeline-desc">
-                        Established the medical theme and core concept: antibody vs. viral infection in an arena survival format. Defined the card upgrade system structure early: 3 cards per wave, stat upgrades in the interim waves, ability unlocks at every 5th wave. Architected the Data Table structure for card definitions and the Blueprint systems needed to drive selection, application, and persistence of upgrades across waves. Divided responsibilities across the three-person team and set up Unreal Engine 5.6 project with Blueprints as the scripting layer.
+                        Established the medical theme and core concept: antibody vs. viral infection in an arena survival format. Defined the card upgrade system structure early: 3 cards per wave, ability unlocks on waves 1 and 6, stat upgrades on waves 2 through 5 and 7 through 9, and wave 10 as the victory condition. Architected the Data Table structure for card definitions and the Blueprint systems needed to drive selection, application, and persistence of upgrades across waves. Divided responsibilities across the three-person team and set up Unreal Engine 5.6 project with Blueprints as the scripting layer.
                     </p>
                 </div>
 
@@ -751,7 +754,7 @@
                 <div class="timeline-item">
                     <h3 class="timeline-title">Days 4–5: Milestone Ability System and Integration</h3>
                     <p class="timeline-desc">
-                        Implemented the milestone ability unlock logic that detects every 5th wave and routes the card selection to present ability cards rather than stat cards. Integrated the milestone check into the wave counter and connected it to the card generation system via event dispatchers, ensuring the correct card pool was used at each wave type. Tested the full loop from wave completion through card presentation to stat or ability application on the player character.
+                        Implemented the ability unlock logic that detects waves 1 and 6 and routes the card selection to present ability cards rather than stat upgrade cards, and the wave 10 victory condition check. Integrated the milestone check into the wave counter and connected it to the card generation system via event dispatchers, ensuring the correct card pool was used at each wave type. Tested the full loop from wave completion through card presentation to stat or ability application on the player character.
                     </p>
                 </div>
 
@@ -771,19 +774,24 @@
             </h2>
 
             <p class="content-text" style="margin-bottom: 1.5rem;">
-                The card upgrade system is the centerpiece of Infecticide's design. Every wave presents 3 cards, with the card pool determined by whether the current wave is a milestone (every 5 waves) or a standard wave between milestones.
+                The card upgrade system is the centerpiece of Infecticide's design. Every wave presents 3 cards, with the card pool determined by the current wave number. Waves 1 and 6 draw from the ability pool, waves 2 through 5 and 7 through 9 draw from the stat upgrade pool, and wave 10 triggers the victory condition.
             </p>
 
             <div class="card-flow">
                 <div class="card-flow-item">
-                    <div class="wave-label">Waves 1–4, 6–9...</div>
+                    <div class="wave-label">Waves 2-5, 7-9</div>
                     <div class="wave-type">Stat Upgrade Cards</div>
                     <div class="wave-desc">3 random stat cards covering damage, speed, health, and other base attributes</div>
                 </div>
                 <div class="card-flow-item milestone">
-                    <div class="wave-label">Wave 5, 10, 15...</div>
+                    <div class="wave-label">Waves 1 and 6</div>
                     <div class="wave-type">Ability Unlock Cards</div>
                     <div class="wave-desc">3 ability cards presented to unlock a new active or passive ability</div>
+                </div>
+                <div class="card-flow-item" style="border-color: rgba(255,0,136,0.5); background: rgba(255,0,136,0.05);">
+                    <div class="wave-label" style="color: var(--accent-tertiary);">Wave 10</div>
+                    <div class="wave-type">Victory</div>
+                    <div class="wave-desc">Survive all 10 waves to complete the run</div>
                 </div>
             </div>
 
@@ -803,7 +811,7 @@
                     Card Pool Selection and Presentation
                 </h3>
                 <p class="system-item-desc">
-                    When a wave ends, the system checks the current wave number to determine which card pool to draw from, using stat cards for standard waves and ability cards for milestone waves. Three cards are randomly selected from the appropriate pool using Blueprint array operations and displayed through the card selection Widget UI. The player's choice triggers the upgrade application logic and dismisses the UI to resume combat.
+                    When a wave ends, the system checks the current wave number to determine which card pool to draw from, using ability cards on waves 1 and 6, stat upgrade cards on waves 2 through 5 and 7 through 9, and triggering the victory screen on wave 10. Three cards are randomly selected from the appropriate pool using Blueprint array operations and displayed through the card selection Widget UI. The player's choice triggers the upgrade application logic and dismisses the UI to resume combat.
                 </p>
             </div>
 
@@ -890,11 +898,11 @@
             <div class="challenge-card">
                 <h3 class="challenge-title">Challenge: Milestone Detection in the Card System</h3>
                 <p class="content-text">
-                    Routing every 5th wave to an ability card pool rather than the standard stat pool required clean integration between the wave counter and the card generation system without coupling them directly. Early implementation attempts created fragile dependencies between the wave manager and card selection logic.
+                    Routing waves 1 and 6 to the ability card pool and wave 10 to a victory condition required clean integration between the wave counter and the card generation system without coupling them directly. Early implementation attempts created fragile dependencies between the wave manager and card selection logic.
                 </p>
                 <h4 class="solution-title">Solution:</h4>
                 <p class="content-text">
-                    Used a modulo check on the wave counter (wave % 5 == 0) to determine card pool selection, keeping the milestone logic isolated to a single conditional. The card system receives only a flag indicating which pool to draw from, remaining unaware of wave management internals. This separation of concerns kept both systems independently testable and made the ability unlock cadence easy to adjust without modifying either system's core logic.
+                    Used explicit wave number checks on the wave counter to route wave 1 and wave 6 to the ability pool, waves 2 through 5 and 7 through 9 to the stat upgrade pool, and wave 10 to the victory condition. The card system receives only a flag indicating which pool to draw from, remaining unaware of wave management internals. This separation of concerns kept both systems independently testable and made the progression cadence easy to adjust without modifying either system's core logic.
                 </p>
             </div>
         </section>
@@ -949,7 +957,7 @@
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-skull-crossbones"></i></div>
                     <h3 class="feature-title">Boss Wave Encounters</h3>
-                    <p class="feature-desc">Replace or augment the wave 5 milestone with a boss encounter alongside the ability unlock, creating a dual reward of new ability plus a climactic combat challenge.</p>
+                    <p class="feature-desc">Pair the wave 6 ability unlock with a boss encounter, creating a dual reward of new ability plus a climactic mid-run combat challenge before the final push to wave 10.</p>
                 </div>
             </div>
         </section>
